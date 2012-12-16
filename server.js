@@ -24,6 +24,6 @@ var app = Mojito.createServer();
 var port = 80;
 
 if (typeof process.env.PORT !== "undefined") {
-    port = process.env.PORT
+    port = process.env.PORT;
 }
 module.exports = app.listen(port);
