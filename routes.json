@@ -9,5 +9,10 @@
         "verbs" : ["post"],
         "path" : "/game/throwDice",
         "call" : "game.throwDice"
+    },
+    "hello" : {
+        "verbs" : ["get"],
+        "path" : "/hello",
+        "call" : "hello.index"
     }
 }]
