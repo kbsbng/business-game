@@ -5,19 +5,23 @@
             "login" : {
                 "type" : "HTMLFrameMojit",
                 "config": {
+                    "deploy": true,
                     "title" : "Login",
                     "child" : {
                         "type" : "LoginFrame",
                         "config" : {
                             "children" : {
                                 "header" : {
-                                    "type" : "Header"
+                                    "type" : "Header",
+                                    "action" : "index"
                                 },
                                 "login" : {
-                                    "type" : "Login"
+                                    "type" : "Login",
+                                    "action" : "index"
                                 },
                                 "footer" : {
-                                    "type" : "Footer"
+                                    "type" : "Footer",
+                                    "action" : "index"
                                 }
                             }
                         }
