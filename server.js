@@ -26,4 +26,4 @@ var port = 80;
 if (typeof process.env.PORT !== "undefined") {
     port = process.env.PORT
 }
-module.exports = app.listen();
+module.exports = app.listen(port);
