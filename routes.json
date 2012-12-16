@@ -1,0 +1,13 @@
+[{
+    "settings": [ "master" ],
+    "move" : {
+        "verbs" : ["post"],
+        "path" : "/game/move",
+        "call" : "game.move"
+    },
+    "throwDice" : {
+        "verbs" : ["post"],
+        "path" : "/game/throwDice",
+        "call" : "game.throwDice"
+    }
+}]

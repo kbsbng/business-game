@@ -1,0 +1,21 @@
+{
+    "name": "business-game",
+    "description": "Business board game",
+    "version": "0.0.1",
+    "author": {
+        "name": "Keshavaprasad B S",
+        "email": "kbsbng@gmail.com"
+    },
+    "contributors": [
+          {
+              "name": "Keshavaprasad B S",
+              "email": "kbsbng@gmail.com"
+          }
+    ],
+    "dependencies": {
+        "mojito": "0.4.x"
+    },
+    "engines": {
+        "node": "0.6.x"
+    }
+}
