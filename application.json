@@ -8,6 +8,12 @@
             "hello" : {
                 "type" : "Hello"
             }
+        },
+        "yui" : {
+            "config" : {
+                "debug" : true,
+                "logLevel" : "info"
+            }
         }
     },
     {
