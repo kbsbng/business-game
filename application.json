@@ -4,6 +4,9 @@
         "specs": {
             "game" : {
                 "type" : "Game"
+            },
+            "hello" : {
+                "type" : "Hello"
             }
         }
     },
