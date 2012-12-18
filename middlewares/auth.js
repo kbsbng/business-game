@@ -27,7 +27,7 @@ module.exports =
         var i;
         var relyingParty = new openid.RelyingParty(
             config.host + "/verify",
-            null,
+            config.host + "/",
           false,
             false,
             []);
