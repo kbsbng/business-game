@@ -17,6 +17,7 @@ var env = "dev";
 if (process.env.NODE_ENV == "production") {
     env ="production";
 }
+console.log("env: "+env);
 var config = conf[env];
 var nonLoginPatterns = [ '^/combo~', '^/static' ];
 module.exports = 
