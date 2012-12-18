@@ -26,6 +26,10 @@ YUI.add('LoginFrame', function(Y, NAME) {
          */
         index: function(ac) {
             ac.composite.done();
+        },
+        authenticate : function (ac) {
+            ac.composite.command.instance.config.children.login.action = "authenticate";
+            ac.composite.done();
         }
 
     };

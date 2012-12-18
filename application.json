@@ -1,6 +1,7 @@
 [
     {
         "settings": [ "master" ],
+        "middleware" : [ "middlewares/auth.js" ],
         "specs": {
             "login" : {
                 "type" : "HTMLFrameMojit",
@@ -12,16 +13,13 @@
                         "config" : {
                             "children" : {
                                 "header" : {
-                                    "type" : "Header",
-                                    "action" : "index"
+                                    "type" : "Header"
                                 },
                                 "login" : {
-                                    "type" : "Login",
-                                    "action" : "index"
+                                    "type" : "Login"
                                 },
                                 "footer" : {
-                                    "type" : "Footer",
-                                    "action" : "index"
+                                    "type" : "Footer"
                                 }
                             }
                         }

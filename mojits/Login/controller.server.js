@@ -25,7 +25,10 @@ YUI.add('Login', function(Y, NAME) {
          *        to the Mojito API.
          */
         index: function(ac) {
-            ac.done("login page");
+            ac.done({});
+        },
+        authenticate : function(ac) {
+            ac.done("auth");
         }
 
     };
