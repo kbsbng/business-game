@@ -2,4 +2,5 @@ dt { font-weight: bold; }
 .sel { background-color: #FF4; }
 .header {background-color: #0066ff; overflow: hidden; }
 h1 { margin: 0.5em; font-weight: normal; font-size: 1.5em; color: white; }
+h2 { font-size: 0.8em; color: white; margin: 0.5em; }
 body { margin: 0; }

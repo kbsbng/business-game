@@ -1,3 +1,4 @@
 dt { font-weight: bold; }
 .sel { background-color: #FF4; }
 .footer { border-top: 1px solid #99CCFF; text-align: right; padding-right: 1em; }
+.footer a { color: #666; }

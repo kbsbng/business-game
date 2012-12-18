@@ -1,10 +1,5 @@
-<div id="{{mojit_view_id}}">
-    <dl>
-        <dt>status</dt>
-        <dd id="dd_status">{{status}}</dd>
-        <dt>data</dt>
-        <dd id="dd_data">
-            <b>some:</b> {{#data}}{{some}}{{/data}}
-        </dd>
-    </dl>
-</div>
+<form id="{{mojit_view_id}}" action="/authenticate">
+    <label for="openid-identifier">OpenID</label>
+    <input name="openid-identifier" id="openid-identifier" />
+    <input type="submit" value="Login" />
+</form>

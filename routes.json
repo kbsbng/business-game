@@ -5,6 +5,16 @@
         "path" : "/login",
         "call" : "login.index"
     },
+    "authenticate" : {
+        "verbs" : ["get"],
+        "path" : "/authenticate",
+        "call" : "login.authenticate"
+    },
+    "verify" : {
+        "verbs" : ["get"],
+        "path" : "/verify",
+        "call" : "login.verify"
+    },
     "move" : {
         "verbs" : ["post"],
         "path" : "/game/move",
