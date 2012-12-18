@@ -4,19 +4,35 @@ var nonLoginPaths = {
     "/login" : true,
     "/favicon.ico" : true
 };
+
+var conf = {
+    "dev" : {
+        "host" : "http://localhost:5000"
+    },
+    "production" : {
+        "host" : "http://business-game.kbsbng.com"
+    }
+};
+var env = "dev";
+if (process.env.NODE_ENV == "production") {
+    env ="production";
+}
+var config = conf[env];
 var nonLoginPatterns = [ '^/combo~', '^/static' ];
-module.exports = //function(config) {
-    //return
+module.exports = 
     function(req, res, next) {
-        console.log("called login handler");
+        console.log(req.headers);
+        console.log("called login handler: " + req.url);
         var parsedUrl = url.parse(req.url, true);
         var i;
         var relyingParty = new openid.RelyingParty(
-            parsedUrl.protocol + "//" + parsedUrl.host + "/",
+            config.host + "/verify",
             null,
-            false,
+          false,
             false,
             []);
+
+        console.log(parsedUrl);
         if(parsedUrl.pathname === "/authenticate") {
              relyingParty.authenticate(parsedUrl.query['openid-identifier'],
                  false,
@@ -47,12 +63,21 @@ module.exports = //function(config) {
                 return next();
             }
         }
-        var result = openid.verifyAssertion(req);
-        if (result.authenticated) {
-            return next();
+        if (parsedUrl.pathname === "/verify") {
+            console.log("Verify called");
+            var result = openid.verifyAssertion(req, function(error, result) {
+                res.writeHead(200);
+                
+                if (error || !result.authenticated) {
+                    res.end("Auth failed");;
+                    return;
+                }
+                res.end("Success");
+                return;
+            });
+            return;
         }
 
-        res.writeHead(302, { Location: parsedUrl.protocol + "//" + parsedUrl.host + "/login" });
+        res.writeHead(302, { Location: config[env] + "/login" });
         res.end();
-    //};
 };
