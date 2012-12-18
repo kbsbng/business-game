@@ -70,7 +70,7 @@ module.exports =
                 res.writeHead(200);
                 
                 if (error || !result.authenticated) {
-                    res.end("Auth failed");;
+                    res.end("Auth failed: error: "+JSON.stringify(error)+"result: "+JSON.stringify(result));
                     return;
                 }
                 res.end("Success");
