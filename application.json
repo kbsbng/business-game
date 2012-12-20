@@ -1,7 +1,11 @@
 [
     {
         "settings": [ "master" ],
-        "middleware" : [ "middlewares/auth.js" ],
+        "middleware" : [ "middleware/bodyparser.js",
+        "middleware/cookieparser.js",
+        "middleware/session.js",
+        "middleware/faceplate.js",
+        "middleware/auth.js"],
         "specs": {
             "login" : {
                 "type" : "HTMLFrameMojit",

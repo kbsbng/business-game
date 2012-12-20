@@ -1,19 +1,9 @@
 [{
     "settings": [ "master" ],
     "login" : {
-        "verbs" : ["get"],
+        "verbs" : ["get", "post"],
         "path" : "/login",
         "call" : "login.index"
-    },
-    "authenticate" : {
-        "verbs" : ["get"],
-        "path" : "/authenticate",
-        "call" : "login.authenticate"
-    },
-    "verify" : {
-        "verbs" : ["get"],
-        "path" : "/verify",
-        "call" : "login.verify"
     },
     "move" : {
         "verbs" : ["post"],
