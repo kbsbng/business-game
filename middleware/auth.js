@@ -1,6 +1,6 @@
 var url = require('url');
 var nonLoginPaths = {
-  "/login": true,
+//  "/login": true,
   "/favicon.ico": true
 };
 
@@ -16,8 +16,17 @@ module.exports = function (req, res, next) {
       return next();
     }
   }
+  if(req.facebook.token) {
+        console.log("Facebook token found: " + req.url);
+        console.log(req.facebook);
+      return next();
+  }
+        console.log("Facebook token not found: " + req.url);
+        console.log(req.facebook);
+        req.url="/login";
+        return next();
 
-  req.facebook.app(function(app) {
+/*  req.facebook.app(function(app) {
     req.facebook.me(function(user) {
       if (!user) {
         console.log("Facebook token not found: " + req.url);
@@ -28,5 +37,5 @@ module.exports = function (req, res, next) {
       }
       return next();
     });
-  });
+  });*/
 };

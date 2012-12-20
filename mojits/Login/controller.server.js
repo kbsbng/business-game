@@ -28,6 +28,7 @@ YUI.add('Login', function (Y, NAME) {
             var facebook = ac._adapter.req.facebook;
             facebook.app(function (app) {
                 facebook.me(function (user) {
+                    console.log(user);
                     ac.done({
                         layout: false,
                         req: ac._adapter.req,
