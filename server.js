@@ -15,6 +15,7 @@ process.chdir(__dirname);
  */
 var Mojito = require('mojito');
 var app = Mojito.createServer();
+console.log(app);
 
 // ---------------------------------------------------------------------------
 // Different hosting environments require different approaches to starting the
