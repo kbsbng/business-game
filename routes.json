@@ -16,7 +16,7 @@
         "call" : "game.throwDice"
     },
     "hello" : {
-        "verbs" : ["get"],
+        "verbs" : ["get", "post"],
         "path" : "/hello",
         "call" : "hello.index"
     }
