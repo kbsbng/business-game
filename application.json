@@ -4,8 +4,8 @@
         "middleware" : [ "middleware/bodyparser.js",
         "middleware/cookieparser.js",
         "middleware/session.js",
-        "middleware/faceplate.js",
-        "middleware/auth.js"],
+        "middleware/auth.js",
+        "middleware/verifyauth.js"],
         "specs": {
             "login" : {
                 "type" : "HTMLFrameMojit",

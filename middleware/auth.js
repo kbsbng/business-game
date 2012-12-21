@@ -1,41 +1,13 @@
-var url = require('url');
+var auth = require('connect-auth');
 var nonLoginPaths = {
 //  "/login": true,
   "/favicon.ico": true
 };
+const fbCallbackAddress = "http://business-game.kbsbng.com/auth/facebook";
 
+var fbId = process.env.FACEBOOK_APP_ID;
+var fbSecret = process.env.FACEBOOK_SECRET;
 var nonLoginPatterns = ['^/combo~', '^/static'];
-module.exports = function (req, res, next) {
-  var i, parsedUrl;
-  parsedUrl = url.parse(req.url);
-  if (nonLoginPaths[parsedUrl.pathname] === true) {
-    return next();
-  }
-  for (i = 0; i < nonLoginPatterns.length; i++) {
-    if (parsedUrl.pathname.match(nonLoginPatterns[i]) !== null) {
-      return next();
-    }
-  }
-  if(req.facebook.token) {
-        console.log("Facebook token found: " + req.url);
-        console.log(req.facebook);
-      return next();
-  }
-        console.log("Facebook token not found: " + req.url);
-        console.log(req.facebook);
-        req.url="/login";
-        return next();
-
-/*  req.facebook.app(function(app) {
-    req.facebook.me(function(user) {
-      if (!user) {
-        console.log("Facebook token not found: " + req.url);
-        req.url = "/login";
-      }
-      else {
-        console.log("Facebook token found: " + req.url);
-      }
-      return next();
-    });
-  });*/
-};
+module.exports = auth( [
+    auth.Facebook({appId : fbId, appSecret: fbSecret, scope: "email", callback: fbCallbackAddress})
+] );
