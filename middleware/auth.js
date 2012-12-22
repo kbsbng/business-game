@@ -16,6 +16,10 @@ module.exports = function (req, res, next) {
       return next();
     }
   }
+  if (req.url == '/channel.html') {
+      res.send(' <script src="//connect.facebook.net/en_US/all.js"></script>');
+      return;
+  }
   if(req.facebook.token) {
         console.log("Facebook token found: " + req.url);
         console.log(req.facebook);
