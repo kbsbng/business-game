@@ -1,3 +1,4 @@
+var url = require("url");
 var nonLoginPaths = {
 //  "/login": true,
   "/favicon.ico": true
@@ -8,8 +9,14 @@ var fbSecret = process.env.FACEBOOK_SECRET;
 var nonLoginPatterns = ['^/combo~', '^/static'];
 module.exports = function(req, res, next) {
     console.log("Url: "+ req.url);
-    if (req.url == "/auth/facebook") {
-        req.authenticate(['facebook'], function(error, authenticated) {
+    var urlp= url.parse(req.originalUrl, true);
+    if (urlp.query.login_with) {
+        req.authenticate([urlp.query.login_with], function(error, authenticated) {
+            if (error) {
+                console.error(error);
+                res.end("Error: " + error);
+                return;
+            }
             if(authenticated) {
                 res.send("<html><h1>Hello Facebook user:" + JSON.stringify( req.getAuthDetails() ) + ".</h1></html>");
                 return;
@@ -32,16 +39,11 @@ module.exports = function(req, res, next) {
         res.send('<html>                                              \n\
           <head>                                             \n\
             <title>connect Auth -- Not Authenticated</title> \n\
-            <script src="http://static.ak.fbcdn.net/connect/en_US/core.js"></script> \n\
           </head><body>                                             \n\
             <div id="wrapper">                               \n\
               <h1>Not authenticated</h1>                     \n\
               <div class="fb_button" id="fb-login" style="float:left; background-position: left -188px">          \n\
-                <a href="/auth/facebook" class="fb_button_medium">        \n\
-                  <span id="fb_login_text" class="fb_button_text"> \n\
-                    Connect with Facebook                    \n\
-                  </span>                                    \n\
-                </a>                                         \n\
+              <button onclick="location.href=\'\?login_with=google2\'" style="padding:5px;border-radius:5px;border:1px solid #555555;cursor:pointer">\n\
               </div></body></html>');
         return;
 	}

@@ -3,11 +3,9 @@ var nonLoginPaths = {
 //  "/login": true,
   "/favicon.ico": true
 };
-const fbCallbackAddress = "http://business-game.kbsbng.com/auth/facebook";
+const google2CallbackAddress = "http://business-game.kbsbng.com/oauth2callback";
 
-var fbId = process.env.FACEBOOK_APP_ID;
-var fbSecret = process.env.FACEBOOK_SECRET;
 var nonLoginPatterns = ['^/combo~', '^/static'];
-module.exports = auth( [
-    auth.Facebook({appId : fbId, appSecret: fbSecret, scope: "email", callback: fbCallbackAddress})
-] );
+module.exports = auth( {strategies: [
+    auth.Google2({appId : process.env.google2id, appSecret: process.env.google2secret, requestEmailPermission: true, callback: google2CallbackAddress})
+],trace: true });
