@@ -3,7 +3,7 @@
  */
 /*jslint anon:true, sloppy:true, nomen:true*/
 YUI.add('Login', function (Y, NAME) {
-
+    var url = require('url');
     /**
      * The Login module.
      *
@@ -25,17 +25,10 @@ YUI.add('Login', function (Y, NAME) {
          *        to the Mojito API.
          */
         index: function (ac) {
-            var facebook = ac._adapter.req.facebook;
-            facebook.app(function (app) {
-                facebook.me(function (user) {
-                    console.log(user);
-                    ac.done({
-                        layout: false,
-                        req: ac._adapter.req,
-                        app: app,
-                        user: user
-                    });
-                });
+            var urlp= url.parse(ac._adapter.req.originalUrl, true);
+            ac.assets.addCss('./index.css');
+            ac.done({
+                origUrl : urlp.query['orig-url']
             });
         }
 

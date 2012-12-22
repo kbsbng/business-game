@@ -32,7 +32,7 @@ YUI.add('Header', function(Y, NAME) {
                 }
                 ac.assets.addCss('./index.css');
                 ac.done({
-                    data: data
+                    user : ac._adapter.req.getAuthDetails().user
                 });
             });
         }

@@ -26,22 +26,7 @@ YUI.add('Hello', function (Y, NAME) {
          */
         index: function (ac) {
             ac.models.get('HelloModelFoo').getData(function (err, data) {
-                if (err) {
-                    ac.error(err);
-                    return;
-                }
-                ac.assets.addCss('./index.css');
-                var facebook = ac._adapter.req.facebook;
-                facebook.app(function (app) {
-                    facebook.me(function (user) {
-                        ac.done({
-                        status: 'Mojito is working.' + JSON.stringify(ac._adapter.req.facebook) + "result: " + JSON.stringify(user),
-                        data: data
-                    });
-                    });
-                });
-
-
+                ac.done("Hello");
             });
         }
 
