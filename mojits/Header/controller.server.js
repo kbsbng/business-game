@@ -31,6 +31,7 @@ YUI.add('Header', function(Y, NAME) {
                     return;
                 }
                 ac.assets.addCss('./index.css');
+                console.log(ac._adapter.req.getAuthDetails());
                 ac.done({
                     user : ac._adapter.req.getAuthDetails().user
                 });

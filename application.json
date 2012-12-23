@@ -11,7 +11,7 @@
                 "type" : "HTMLFrameMojit",
                 "config": {
                     "deploy": true,
-                    "title" : "Login",
+                    "title" : "Business Board Game - Login",
                     "child" : {
                         "type" : "LoginFrame",
                         "config" : {
@@ -21,6 +21,29 @@
                                 },
                                 "login" : {
                                     "type" : "Login"
+                                },
+                                "footer" : {
+                                    "type" : "Footer"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+             "games" : {
+                "type" : "HTMLFrameMojit",
+                "config": {
+                    "deploy": true,
+                    "title" : "Business Board Game - Games List",
+                    "child" : {
+                        "type" : "GameListFrame",
+                        "config" : {
+                            "children" : {
+                                "header" : {
+                                    "type" : "Header"
+                                },
+                                "gameList" : {
+                                    "type" : "GameList"
                                 },
                                 "footer" : {
                                     "type" : "Footer"

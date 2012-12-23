@@ -1,3 +1,20 @@
 dt { font-weight: bold; }
 .sel { background-color: #FF4; }
-.login-table .google { background: #0033CC; color: white; text-decoration: none; font-size: bold; }
+.login-table .google {
+    padding: 0.4em;
+}
+.login-table .google img {
+    width: 1.5em;
+    height: 1.5em;
+    vertical-align: middle;
+}
+.login-table .google span {
+    vertical-align: middle;
+    font-size: 13px;
+    font-family: verdana;
+    background: #4D90FE;
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 0.3em;
+}
