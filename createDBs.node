@@ -1,0 +1,29 @@
+var mongo, db;
+
+mongo = require('mongoskin');
+db = mongo.db(process.env.MONGOHQ_URL);
+
+db.createCollection("users", function(err, collection) {
+    if (err) {
+        console.error(err);
+        return;
+    }
+    console.log("Created collection users: " + collection);
+});
+
+db.createCollection("games", function(err, collection) {
+    if (err) {
+        console.error(err);
+        return;
+    }
+    console.log("Created collection games: " + collection);
+});
+db.createCollection("test", function(err, collection) {
+    if (err) {
+        console.error(err);
+        return;
+    }
+    console.log("Created collection test: " + collection);
+});
+
+
