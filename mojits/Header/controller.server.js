@@ -4,6 +4,7 @@
 /*jslint anon:true, sloppy:true, nomen:true*/
 YUI.add('Header', function(Y, NAME) {
 
+    var utils = Y.mojito.businessGameUtils;
 /**
  * The Header module.
  *
@@ -33,11 +34,11 @@ YUI.add('Header', function(Y, NAME) {
                 ac.assets.addCss('./index.css');
                 console.log(ac._adapter.req.getAuthDetails());
                 ac.done({
-                    user : ac._adapter.req.getAuthDetails().user
+                    user : utils.getUserObj(ac)
                 });
             });
         }
 
     };
 
-}, '0.0.1', {requires: ['mojito', 'mojito-assets-addon', 'mojito-models-addon', 'HeaderModelFoo']});
+}, '0.0.1', {requires: ['mojito', 'mojito-assets-addon', 'mojito-models-addon', 'HeaderModelFoo', 'business-game-util']});

@@ -4,6 +4,7 @@
 /*jslint anon:true, sloppy:true, nomen:true*/
 YUI.add('GameList', function(Y, NAME) {
 
+    var utils = Y.mojito.businessGameUtils;
 /**
  * The GameList module.
  *
@@ -31,6 +32,7 @@ YUI.add('GameList', function(Y, NAME) {
                     return;
                 }
                 ac.assets.addCss('./index.css');
+                ac.models.GameModel.ensureUserExists(utils.getUserEmail(ac));
                 ac.done({
                 });
             });
@@ -38,4 +40,4 @@ YUI.add('GameList', function(Y, NAME) {
 
     };
 
-}, '0.0.1', {requires: ['mojito', 'mojito-assets-addon', 'mojito-models-addon', 'GameListModelFoo']});
+}, '0.0.1', {requires: ['mojito', 'mojito-assets-addon', 'mojito-models-addon', 'GameListModelFoo', 'GameModel', 'business-game-util']});

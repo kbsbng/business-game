@@ -63,7 +63,7 @@
         "yui" : {
             "config" : {
                 "debug" : true,
-                "logLevel" : "info"
+                "logLevel" : "debug"
             }
         }
     },

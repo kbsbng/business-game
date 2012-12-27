@@ -14,6 +14,7 @@ YUI.add('GameModel', function(Y, NAME) {
         },
 
         ensureUserExists: function(userId, cb) {
+            Y.log("Ensuring that user " + userId + " exists");
             users.insert({"_id" : userId}, function(err, result) {
                 if (err != null) {
                     Y.log(err, "error", NAME);

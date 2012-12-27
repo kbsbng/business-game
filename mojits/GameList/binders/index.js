@@ -26,6 +26,25 @@ YUI.add('GameListBinderIndex', function(Y, NAME) {
             this.mojitProxy = mojitProxy;
         },
 
+        addNewGame : function() {
+            Y.io("/game/addnewgame", {
+                on : {
+                    success : function(id, o, args) {
+                        console.log("success");
+                        Y.log(o);
+                    },
+                    failure : function(id, o, args) {
+                        console.log("failure.. ");
+                        Y.log("Response: " + o.responseText);
+                    }
+                },
+                context : this,
+                headers : {
+                    'Content-type' : 'application/javascript'
+                }
+            });
+        },
+
         /**
          * The binder method, invoked to allow the mojit to attach DOM event
          * handlers.
@@ -35,6 +54,7 @@ YUI.add('GameListBinderIndex', function(Y, NAME) {
         bind: function(node) {
             var me = this;
             this.node = node;
+            node.one('#new-game-button').on('click', this.addNewGame);
             /**
              * Example code for the bind method:
              *
@@ -54,4 +74,4 @@ YUI.add('GameListBinderIndex', function(Y, NAME) {
 
     };
 
-}, '0.0.1', {requires: ['event-mouseenter', 'mojito-client']});
+}, '0.0.1', {requires: ['event-mouseenter', 'mojito-client', 'io-base']});
