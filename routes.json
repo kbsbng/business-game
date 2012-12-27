@@ -10,6 +10,11 @@
         "path" : "/gamelist",
         "call" : "games.index"
     },
+    "landing" : {
+        "verbs" : ["get", "post"],
+        "path" : "/",
+        "call" : "games.index"
+    },
     "move" : {
         "verbs" : ["post"],
         "path" : "/game/move",

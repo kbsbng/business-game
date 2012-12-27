@@ -32,8 +32,6 @@ YUI.add('GameList', function(Y, NAME) {
                 }
                 ac.assets.addCss('./index.css');
                 ac.done({
-                    status: 'Mojito is working.',
-                    data: data
                 });
             });
         }

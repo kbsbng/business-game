@@ -25,10 +25,16 @@ YUI.add('Login', function (Y, NAME) {
          *        to the Mojito API.
          */
         index: function (ac) {
-            var urlp= url.parse(ac._adapter.req.originalUrl, true);
+            var urlp, origUrl;
+            urlp = url.parse(ac._adapter.req.originalUrl, true);
+            origUrl = urlp.query['orig-url'];
+            if (origUrl === undefined) {
+                origUrl = "/";
+            }
+
             ac.assets.addCss('./index.css');
             ac.done({
-                origUrl : urlp.query['orig-url']
+                origUrl : origUrl
             });
         }
 

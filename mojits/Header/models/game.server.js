@@ -32,13 +32,13 @@ YUI.add('GameModel', function(Y, NAME) {
         newGame : function(userId, cb) {
             var gameId;
             gameId = this._getNewGameId(userId);
-            games.insert({"_id" : gameId.id, players : [ userId ], creationTime:creationTime}, function(err, result) {
-                if (err != null) {
+            games.insert({"_id" : gameId.id, players : [ userId ], creationTime : gameId.creationTime}, function(err, result) {
+                if (err !== null) {
                     Y.log(err, "error", NAME);
                     cb(err, result);
                     return;
                 }
-                users.update({"_id" : userId, {$push : {games : gameId.id}}}, function(err, result) {
+                users.update({"_id" : userId}, {"$push" : {games : gameId.id}}, function(err, result) {
                     if (err != null) {
                         Y.log(err, "error", NAME);
                     }
@@ -48,12 +48,9 @@ YUI.add('GameModel', function(Y, NAME) {
         },
 
         addPlayerToGame : function(userId, gameId) {
-            games.update({"_id" : gameId, {$push:{players: userId}}});
-        },
-
-        getData: function(callback) {
-            callback(null, { some: 'data' });
+            games.update({"_id" : gameId}, {$push:{players: userId}});
         }
+
 
     };
 
