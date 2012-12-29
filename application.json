@@ -42,6 +42,9 @@
                                 "header" : {
                                     "type" : "Header"
                                 },
+                                "newGame" : {
+                                    "type" : "NewGame"
+                                },
                                 "gameList" : {
                                     "type" : "GameList"
                                 },

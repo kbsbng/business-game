@@ -1,3 +1,20 @@
-<div id="{{mojit_view_id}}">
-    <input type="button" value="New Game" id="new-game-button">
-</div>
+<table id="{{mojit_view_id}}">
+    <tr>
+        <th>Name</th>
+        <th>Players</th>
+        <th>Creation Time</th>
+        <th>Actions</th>
+    </tr>
+    {{#each games}}
+    <tr>
+        <td>{{name}}</td>
+        <td>
+        {{#each players}}
+        {{this}},
+        {{/each}}
+        </td>
+        <td>{{creationTime}}</td>
+        <td></td>
+    </tr>
+    {{/each}}
+</table>

@@ -1,14 +1,5 @@
-/*
- * Copyright (c) 2012 Yahoo! Inc. All rights reserved.
- */
 /*jslint anon:true, sloppy:true, nomen:true*/
 YUI.add('Hello', function (Y, NAME) {
-
-    /**
-     * The Hello module.
-     *
-     * @module Hello
-     */
 
     /**
      * Constructor for the Controller class.

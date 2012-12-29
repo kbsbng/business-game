@@ -5,6 +5,11 @@
         "path" : "/login",
         "call" : "login.index"
     },
+    "addnewgame" : {
+        "verbs" : ["get", "post"],
+        "path" : "/addnewgame",
+        "call" : "game.addnewgame"
+    },
     "games" : {
         "verbs" : ["get", "post"],
         "path" : "/gamelist",

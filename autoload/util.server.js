@@ -1,5 +1,8 @@
 YUI.add('business-game-util', function(Y) {
     Y.mojito.businessGameUtils = {
+        getUserName : function(ac) {
+            return this.getUserObj(ac).name;
+        },
         getUserEmail : function(ac) {
             return this.getUserObj(ac).email;
         },

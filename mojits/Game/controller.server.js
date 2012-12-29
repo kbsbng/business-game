@@ -1,8 +1,6 @@
-/*
- * Copyright (c) 2012 Yahoo! Inc. All rights reserved.
- */
 /*jslint anon:true, sloppy:true, nomen:true*/
 YUI.add('Game', function(Y, NAME) {
+    var utils = Y.mojito.businessGameUtils;
 
 /**
  * The Game module.
@@ -36,8 +34,23 @@ YUI.add('Game', function(Y, NAME) {
                     data: data
                 });
             });
-        }
+        },
 
+        addnewgame: function(ac) {
+            var model = ac.models.get('GameModel');
+            model.newGame(utils.getUserEmail(ac), function(err, result) {
+                ac.http.getResponse().setHeader('Content-Type', 'application/json');
+                if (err) {
+                    Y.log("error: " + err, "error", NAME);
+                    ac.error(JSON.stringify(err));
+                    return;
+                }
+                Y.log("Added new game", "debug", NAME);
+                ac.done(JSON.stringify(result));
+            });
+        }
     };
 
-}, '0.0.1', {requires: ['mojito', 'mojito-assets-addon', 'mojito-models-addon', 'GameModelFoo']});
+}, '0.0.1', {
+    requires: ['mojito', 'mojito-assets-addon', 'mojito-models-addon', 'GameModelFoo', 'GameModel', 'business-game-util', 'mojito-http-addon']
+});
