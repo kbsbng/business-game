@@ -1,0 +1,13 @@
+table(id=meta.id)
+  tr
+    th Name
+    th Players
+    th Creation Time
+    th Actions
+  each game, i in games
+    tr
+      td #{game.name}
+      td
+        each player, i in game.players
+          | #{users[player].name}
+      td #{datetime.formatAgo(new Date(game.creationTime))}

@@ -84,8 +84,12 @@ YUI.add('GameModel', function(Y, NAME) {
                         return;
                     }
                     Y.log(games, "debug", NAME);
-                    Y.log(users, "debug", NAME);
-                    cb(error, {games : games, users : users});
+                    var usersObj = {};
+                    users.forEach(function(e) {
+                        usersObj[e._id] = e;
+                    });
+                    Y.log(usersObj, "debug", NAME);
+                    cb(error, {games : games, users : usersObj});
                 });
             });
         }

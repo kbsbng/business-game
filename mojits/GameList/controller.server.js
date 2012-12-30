@@ -5,6 +5,7 @@
 YUI.add('GameList', function(Y, NAME) {
 
     var utils = Y.mojito.businessGameUtils;
+    var datetime = require('datetime');
 /**
  * The GameList module.
  *
@@ -38,6 +39,7 @@ YUI.add('GameList', function(Y, NAME) {
                 }
                 ac.assets.addCss('./index.css');
                 //Y.log(data, "debug", data);
+                data.datetime = datetime;
                 ac.done(data);
             });
         }

@@ -40,13 +40,16 @@ YUI.add('Game', function(Y, NAME) {
             var model = ac.models.get('GameModel');
             model.newGame(utils.getUserEmail(ac), function(err, result) {
                 ac.http.getResponse().setHeader('Content-Type', 'application/json');
+                // XXX: fix this later
+                ac.http.redirect('/');
                 if (err) {
                     Y.log("error: " + err, "error", NAME);
-                    ac.error(JSON.stringify(err));
+                    //ac.error(JSON.stringify(err));
                     return;
                 }
                 Y.log("Added new game", "debug", NAME);
-                ac.done(JSON.stringify(result));
+                //ac.done(JSON.stringify(result));
+                //ac.done();
             });
         }
     };
