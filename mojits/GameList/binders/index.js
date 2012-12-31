@@ -18,6 +18,25 @@ YUI.add('GameListBinderIndex', function(Y, NAME) {
      */
     Y.namespace('mojito.binders')[NAME] = {
 
+        sendAction : function(action, id) {
+            Y.io("/game/action/" + action, {
+                on : {
+                    success : function(id, o, args) {
+                        console.log("success");
+                        Y.log(o);
+                    },
+                    failure : function(id, o, args) {
+                        console.log("failure.. ");
+                        Y.log("Response: " + o.responseText);
+                    }
+                },
+                context : this,
+                headers : {
+                    'Content-type' : 'application/javascript'
+                }
+            });
+        },
+
         /**
          * Binder initialization method, invoked after all binders on the page
          * have been constructed.
@@ -35,6 +54,14 @@ YUI.add('GameListBinderIndex', function(Y, NAME) {
         bind: function(node) {
             var me = this;
             this.node = node;
+            node.all('.action-button').on('click', function(e) {
+                testE = e;
+                var action, id;
+                id = e.target.ancestor("tr").get("id");
+                action = e.target.get('value');
+                Y.log(action + " action called for " + id);
+                me.sendAction(action, id);
+            });
             /**
              * Example code for the bind method:
              *

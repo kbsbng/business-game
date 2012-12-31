@@ -26,24 +26,24 @@ YUI.add('NewGameBinderIndex', function(Y, NAME) {
             this.mojitProxy = mojitProxy;
         },
 
-        addNewGame : function() {
-            Y.io("/addnewgame", {
-                on : {
-                    success : function(id, o, args) {
-                        console.log("success");
-                        Y.log(o);
-                    },
-                    failure : function(id, o, args) {
-                        console.log("failure.. ");
-                        Y.log("Response: " + o.responseText);
-                    }
-                },
-                context : this,
-                headers : {
-                    'Content-type' : 'application/javascript'
-                }
-            });
-        },
+        //addNewGame : function() {
+        //    Y.io("/addnewgame", {
+        //        on : {
+        //            success : function(id, o, args) {
+        //                console.log("success");
+        //                Y.log(o);
+        //            },
+        //            failure : function(id, o, args) {
+        //                console.log("failure.. ");
+        //                Y.log("Response: " + o.responseText);
+        //            }
+        //        },
+        //        context : this,
+        //        headers : {
+        //            'Content-type' : 'application/javascript'
+        //        }
+        //    });
+        //},
 
         /**
          * The binder method, invoked to allow the mojit to attach DOM event
@@ -54,7 +54,7 @@ YUI.add('NewGameBinderIndex', function(Y, NAME) {
         bind: function(node) {
             var me = this;
             this.node = node;
-            node.one('#new-game-button').on('click', this.addNewGame);
+            //node.one('#new-game-button').on('click', this.addNewGame);
             /**
              * Example code for the bind method:
              *

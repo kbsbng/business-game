@@ -37,6 +37,11 @@ YUI.add('GameList', function(Y, NAME) {
                     ac.error(err);
                     return;
                 }
+                var actions = ac.config.getDefinition("actions");
+                data.games.forEach(function(game){
+                    var status = game.status ? game.status : "Awaiting Players";
+                    game.actions = actions[status];
+                });
                 ac.assets.addCss('./index.css');
                 //Y.log(data, "debug", data);
                 data.datetime = datetime;
@@ -46,4 +51,4 @@ YUI.add('GameList', function(Y, NAME) {
 
     };
 
-}, '0.0.1', {requires: ['mojito', 'mojito-assets-addon', 'mojito-models-addon', 'GameListModelFoo', 'GameModel', 'business-game-util']});
+}, '0.0.1', {requires: ['mojito', 'mojito-assets-addon', 'mojito-models-addon', 'GameListModelFoo', 'GameModel', 'business-game-util', 'mojito-config-addon']});

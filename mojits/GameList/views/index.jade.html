@@ -2,12 +2,19 @@ table(id=meta.id)
   tr
     th Name
     th Players
+    th No. of Players
     th Creation Time
+    th Status
     th Actions
   each game, i in games
-    tr
+    tr(id=game._id)
       td #{game.name}
       td
         each player, i in game.players
           | #{users[player].name}
+      td #{game['numPlayers']}
       td #{datetime.formatAgo(new Date(game.creationTime))}
+      td #{game.status}
+      td
+        each action, i in game.actions
+          input(type="button", class="action-button", value=action)

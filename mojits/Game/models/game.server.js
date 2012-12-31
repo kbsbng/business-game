@@ -35,7 +35,7 @@ YUI.add('GameModel', function(Y, NAME) {
             return {id:gameId, creationTime:creationTime};
         },
 
-        newGame : function(userId, cb) {
+        newGame : function(userId, params, cb) {
             if (cb === undefined) {
                 cb = function(err, result) {
                     Y.log(result, "debug", NAME);
@@ -43,7 +43,7 @@ YUI.add('GameModel', function(Y, NAME) {
             }
             var gameId;
             gameId = this._getNewGameId(userId);
-            games.insert({"_id" : gameId.id, players : [ userId ], creationTime : gameId.creationTime}, function(err, result) {
+            games.insert({"_id" : gameId.id, players : [ userId ], creator : userId, status : "Awaiting Players", name : params['game-name'], numPlayers : params['num-players'], creationTime : gameId.creationTime}, function(err, result) {
                 if (err) {
                     Y.log(err, "error", NAME);
                     cb(err, result);
@@ -58,6 +58,10 @@ YUI.add('GameModel', function(Y, NAME) {
                     cb(null, {gameId : gameId.id});
                 });
             });
+        },
+
+        deleteGame: function(params, cb) {
+            games.find({"_id" : params.gameId})
         },
 
         addPlayerToGame : function(userId, gameId) {
