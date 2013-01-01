@@ -26,19 +26,13 @@ YUI.add('Header', function(Y, NAME) {
          *        to the Mojito API.
          */
         index: function(ac) {
-            ac.models.get('HeaderModelFoo').getData(function(err, data) {
-                if (err) {
-                    ac.error(err);
-                    return;
-                }
                 ac.assets.addCss('./index.css');
                 console.log(ac._adapter.req.getAuthDetails());
                 ac.done({
                     user : utils.getUserObj(ac)
                 });
-            });
         }
 
     };
 
-}, '0.0.1', {requires: ['mojito', 'mojito-assets-addon', 'mojito-models-addon', 'HeaderModelFoo', 'business-game-util']});
+}, '0.0.1', {requires: ['mojito', 'mojito-assets-addon', 'mojito-models-addon', 'business-game-util']});

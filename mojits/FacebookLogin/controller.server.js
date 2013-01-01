@@ -25,19 +25,13 @@ YUI.add('FacebookLogin', function(Y, NAME) {
          *        to the Mojito API.
          */
         index: function(ac) {
-            ac.models.get('FacebookLoginModelFoo').getData(function(err, data) {
-                if (err) {
-                    ac.error(err);
-                    return;
-                }
                 ac.assets.addCss('./index.css');
                 ac.done({
                     status: 'Mojito is working.',
                     data: data
                 });
-            });
         }
 
     };
 
-}, '0.0.1', {requires: ['mojito', 'mojito-assets-addon', 'mojito-models-addon', 'FacebookLoginModelFoo']});
+}, '0.0.1', {requires: ['mojito', 'mojito-assets-addon', 'mojito-models-addon']});

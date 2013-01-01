@@ -23,17 +23,11 @@ YUI.add('Game', function(Y, NAME) {
          *        to the Mojito API.
          */
         index: function(ac) {
-            ac.models.get('GameModelFoo').getData(function(err, data) {
-                if (err) {
-                    ac.error(err);
-                    return;
-                }
                 ac.assets.addCss('./index.css');
                 ac.done({
                     status: 'Mojito is working.',
                     data: data
                 });
-            });
         },
 
         addnewgame: function(ac) {
@@ -78,5 +72,5 @@ YUI.add('Game', function(Y, NAME) {
     };
 
 }, '0.0.1', {
-    requires: ['mojito', 'mojito-assets-addon', 'mojito-models-addon', 'GameModelFoo', 'GameModel', 'business-game-util', 'mojito-http-addon', 'mojito-params-addon']
+    requires: ['mojito', 'mojito-assets-addon', 'mojito-models-addon', 'GameModel', 'business-game-util', 'mojito-http-addon', 'mojito-params-addon']
 });

@@ -25,11 +25,9 @@ YUI.add('GameListFrame', function(Y, NAME) {
          *        to the Mojito API.
          */
         index: function(ac) {
-            ac.models.get('GameListFrameModelFoo').getData(function(err, data) {
                 ac.composite.done();
-            });
         }
 
     };
 
-}, '0.0.1', {requires: ['mojito', 'mojito-assets-addon', 'mojito-models-addon', 'GameListFrameModelFoo', 'mojito-composite-addon']});
+}, '0.0.1', {requires: ['mojito', 'mojito-assets-addon', 'mojito-models-addon', 'mojito-composite-addon']});

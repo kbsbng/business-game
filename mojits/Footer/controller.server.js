@@ -25,18 +25,11 @@ YUI.add('Footer', function(Y, NAME) {
          *        to the Mojito API.
          */
         index: function(ac) {
-            ac.models.get('FooterModelFoo').getData(function(err, data) {
-                if (err) {
-                    ac.error(err);
-                    return;
-                }
                 ac.assets.addCss('./index.css');
                 ac.done({
-                    data: data
                 });
-            });
         }
 
     };
 
-}, '0.0.1', {requires: ['mojito', 'mojito-assets-addon', 'mojito-models-addon', 'FooterModelFoo']});
+}, '0.0.1', {requires: ['mojito', 'mojito-assets-addon', 'mojito-models-addon']});

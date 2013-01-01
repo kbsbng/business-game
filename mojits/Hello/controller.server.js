@@ -16,13 +16,11 @@ YUI.add('Hello', function (Y, NAME) {
          *        to the Mojito API.
          */
         index: function (ac) {
-            ac.models.get('HelloModelFoo').getData(function (err, data) {
                 ac.done("Hello");
-            });
         }
 
     };
 
 }, '0.0.1', {
-    requires: ['mojito', 'mojito-assets-addon', 'mojito-models-addon', 'HelloModelFoo']
+    requires: ['mojito', 'mojito-assets-addon', 'mojito-models-addon']
 });
