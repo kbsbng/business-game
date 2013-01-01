@@ -61,7 +61,19 @@ YUI.add('GameModel', function(Y, NAME) {
         },
 
         deleteGame: function(params, cb) {
-            games.find({"_id" : params.gameId})
+            games.remove({"_id" : params.gameId}, {safe:true}, function(err, count) {
+                if (err) {
+                    cb(err, count);
+                    return;
+                }
+                if (count === 0) {
+                    cb({error : "Game not found"});
+                    return;
+                }
+                Y.log("Removed " + count + " game object from db with id " + params.gameId);
+                cb(err, {status : "Deleted game"});
+                return;
+            });
         },
 
         addPlayerToGame : function(userId, gameId) {

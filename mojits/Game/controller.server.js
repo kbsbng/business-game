@@ -68,12 +68,11 @@ YUI.add('Game', function(Y, NAME) {
 
                 if (err) {
                     Y.log("error: " + err, "error", NAME);
-                    ac.error(JSON.stringify(err));
+                    ac.done(JSON.stringify(err));
                     return;
                 }
-                Y.log("Added new game", "debug", NAME);
+                Y.log("Deleted game", "debug", NAME);
                 ac.done(JSON.stringify(result));
-
             });
         }
     };

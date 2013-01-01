@@ -19,21 +19,24 @@ YUI.add('GameListBinderIndex', function(Y, NAME) {
     Y.namespace('mojito.binders')[NAME] = {
 
         sendAction : function(action, id) {
-            Y.io("/game/action/" + action, {
+            Y.io("/game/action/" + action + "?gameId=" + id, {
+//                method : "POST",
+//                data : {gameId:id},
                 on : {
                     success : function(id, o, args) {
                         console.log("success");
                         Y.log(o);
+                        Y.one("#action-status").set('text', o.responseText);
                     },
                     failure : function(id, o, args) {
                         console.log("failure.. ");
                         Y.log("Response: " + o.responseText);
                     }
                 },
-                context : this,
-                headers : {
-                    'Content-type' : 'application/javascript'
-                }
+                context : this//,
+ //               headers : {
+//                    'Content-type' : 'application/javascript'
+  //              }
             });
         },
 

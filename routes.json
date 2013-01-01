@@ -10,6 +10,11 @@
         "path" : "/addnewgame",
         "call" : "game.addnewgame"
     },
+    "deletegame" : {
+        "verbs" : ["get", "post"],
+        "path" : "/game/action/delete",
+        "call" : "game.deletegame"
+    },
     "games" : {
         "verbs" : ["get", "post"],
         "path" : "/gamelist",
