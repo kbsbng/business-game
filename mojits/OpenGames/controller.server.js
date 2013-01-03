@@ -25,16 +25,10 @@ YUI.add('OpenGames', function(Y, NAME) {
          *        to the Mojito API.
          */
         index: function(ac) {
-            ac.models.get('OpenGamesModelFoo').getData(function(err, data) {
-                if (err) {
-                    ac.error(err);
-                    return;
-                }
+            ac.models.get('GameModel').getOpenGames(function(data) {
                 ac.assets.addCss('./index.css');
-                ac.done({
-                    status: 'Mojito is working.',
-                    data: data
-                });
+                Y.log(data, "debug", NAME);
+                ac.done(data);
             });
         }
 

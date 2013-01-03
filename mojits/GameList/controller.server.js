@@ -31,12 +31,7 @@ YUI.add('GameList', function(Y, NAME) {
             model = ac.models.get('GameModel');
             userEmail = utils.getUserEmail(ac);
             model.ensureUserExists({email : userEmail, name : utils.getUserName(ac)});
-            model.getGamesForUser(userEmail, function(err, data) {
-                if (err) {
-                    Y.log(err, "error", NAME);
-                    ac.error(err);
-                    return;
-                }
+            model.getGamesForUser(userEmail, function(data) {
                 var actions = ac.config.getDefinition("actions");
                 data.games.forEach(function(game){
                     var status = game.status ? game.status : "Awaiting Players";

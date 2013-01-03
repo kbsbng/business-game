@@ -1,0 +1,20 @@
+div(id=#{meta.id})
+  h2 Open Games
+  table
+    tr
+      th Name
+      th Players
+      th No. of Players
+      th Creation Time
+      th Actions
+    each game, i in games
+      tr(id=game._id)
+        td #{game.name}
+        td
+          each player, i in game.players
+            | #{users[player].name}
+        td #{game['numPlayers']}
+        td #{datetime.formatAgo(new Date(game.creationTime))}
+        td
+        if (#{game.playerIds[userId]} != 1)
+            input(type="button", class="join-game-button", value="join-game")
