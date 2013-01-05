@@ -15,6 +15,11 @@
         "path" : "/game/action/delete",
         "call" : "game.deletegame"
     },
+    "deleteuser" : {
+        "verbs" : ["get", "post"],
+        "path" : "/game/action/deleteuser",
+        "call" : "game.deleteuser"
+    },
     "games" : {
         "verbs" : ["get", "post"],
         "path" : "/gamelist",

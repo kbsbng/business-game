@@ -45,6 +45,9 @@
                                 "newGame" : {
                                     "type" : "NewGame"
                                 },
+                                "openGames" : {
+                                    "type" : "OpenGames"
+                                },
                                 "gameList" : {
                                     "type" : "GameList"
                                 },

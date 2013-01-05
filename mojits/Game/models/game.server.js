@@ -104,8 +104,23 @@ YUI.add('GameModel', function(Y, NAME) {
                     return;
                 }
                 Y.log("Removed " + count + " game object from db with id " + params.gameId);
-                cb(err, {
-                    status: "Deleted game"
+                users.update({
+                    games: params.gameId
+                }, {
+                    "$pop": {
+                        "games": params.gameId
+                    }
+                }, {
+                    safe: true
+                }, function(err, result) {
+                    if (err) {
+                        Y.log(err, "error", NAME);
+                        cb(err, result);
+                        return;
+                    }
+                    cb(err, {
+                        status: "Deleted game"
+                    });
                 });
                 return;
             });
@@ -155,21 +170,28 @@ YUI.add('GameModel', function(Y, NAME) {
         },
 
         getGamesForUser: function(userId, cb) {
+            var me = this;
             games.find({
                 players: {
                     "$all": [userId]
                 }
-            }).toArray(function(err, games) {
+            }).toArray(function(err, gs) {
                 if (err) {
                     Y.log(err, "error", NAME);
                     cb({});
                     return;
                 }
+                if (!gs) {
+                    cb({});
+                    return;
+                }
+                Y.log(gs, "debug", NAME);
+                me.getUsersForGames(gs, cb);
             });
-            this.getUsersForGames(games, cb);
         },
 
         getOpenGames: function(cb) {
+            var me = this;
             games.find({
                 status: "Awaiting Players"
             }).toArray(function(error, games) {
@@ -178,7 +200,21 @@ YUI.add('GameModel', function(Y, NAME) {
                     cb({});
                     return;
                 }
-                this.getUsersForGames(games, cb);
+                me.getUsersForGames(games, cb);
+            });
+        },
+
+        deleteUser: function(userId, cb) {
+            users.remove({
+                "_id": userId
+            }, {
+                safe: true
+            }, function(err, count) {
+                if (err) {
+                    cb(err, count);
+                    return;
+                }
+                cb(err, count);
             });
         }
 

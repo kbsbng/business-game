@@ -16,5 +16,5 @@ div(id=#{meta.id})
         td #{game['numPlayers']}
         td #{datetime.formatAgo(new Date(game.creationTime))}
         td
-        if (#{game.playerIds[userId]} != 1)
-            input(type="button", class="join-game-button", value="join-game")
+        if (game.playerIds[user.email] != 1)
+          input(type="button", class="join-game-button", value="join-game")

@@ -68,7 +68,15 @@ YUI.add('Game', function(Y, NAME) {
                 Y.log("Deleted game", "debug", NAME);
                 ac.done(JSON.stringify(result));
             });
+        },
+        
+        deleteuser : function(ac) {
+            var model = ac.models.get('GameModel');
+            model.deleteUser(utils.getUserEmail(ac), function(err, result) {
+                ac.done("Done deleting " + result);
+            });
         }
+
     };
 
 }, '0.0.1', {

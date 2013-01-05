@@ -3,6 +3,8 @@
  */
 /*jslint anon:true, sloppy:true, nomen:true*/
 YUI.add('OpenGames', function(Y, NAME) {
+    var utils = Y.mojito.businessGameUtils;
+    var datetime = require('datetime');
 
 /**
  * The OpenGames module.
@@ -28,6 +30,8 @@ YUI.add('OpenGames', function(Y, NAME) {
             ac.models.get('GameModel').getOpenGames(function(data) {
                 ac.assets.addCss('./index.css');
                 Y.log(data, "debug", NAME);
+                data.user = utils.getUserObj(ac);
+                data.datetime = datetime;
                 ac.done(data);
             });
         }
