@@ -1,5 +1,6 @@
-div(id=#{meta.id})
+div(id=meta.id)
   h2 Open Games
+  div(id="action-status")
   table
     tr
       th Name
@@ -16,5 +17,5 @@ div(id=#{meta.id})
         td #{game['numPlayers']}
         td #{datetime.formatAgo(new Date(game.creationTime))}
         td
-        if (game.playerIds[user.email] != 1)
-          input(type="button", class="join-game-button", value="join-game")
+          if (game.playerIds[user.email] != 1)
+            input(type="button", class="join-game-button", value="Join Game")

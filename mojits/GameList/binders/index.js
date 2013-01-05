@@ -26,7 +26,8 @@ YUI.add('GameListBinderIndex', function(Y, NAME) {
                     success : function(id, o, args) {
                         console.log("success");
                         Y.log(o);
-                        Y.one("#action-status").set('text', o.responseText);
+                        Y.one("#game-list-action-status").set('text', o.responseText);
+                        document.location.reload();
                     },
                     failure : function(id, o, args) {
                         console.log("failure.. ");

@@ -3,7 +3,12 @@ YUI.add('GameModel', function(Y, NAME) {
     var url, mongo, db, users, games;
     url = require("url");
     mongo = require('mongoskin');
-    db = mongo.db(process.env.MONGOHQ_URL);
+    db = mongo.db(process.env.MONGOHQ_URL, {
+        //database: 'app10104342',
+        safe: true
+        //username: process.env.MONGOHQ_USERNAME,
+        //password: process.env.MONGOHQ_PASSWORD
+    });
     users = db.collection('users');
     games = db.collection("games");
 
@@ -126,13 +131,64 @@ YUI.add('GameModel', function(Y, NAME) {
             });
         },
 
-        addPlayerToGame: function(userId, gameId) {
-            games.update({
+        getGameStatus: function(gameId, cb) {
+            games.findOne({
                 "_id": gameId
-            }, {
+            }, ["players", "numPlayers"], function(err, game) {
+                if (err) {
+                    Y.log(err, "error", NAME);
+                    cb(err, game);
+                    return;
+                }
+                cb(err, game);
+            });
+        },
+
+        setGameStatus: function(gameId, st, cb) {
+            Y.log("Setting status of gameid " + gameId + " to " + st, "debug", NAME);
+            games.findAndModify({
+                "_id": gameId
+            }, [
+                ['_id', 'asc']
+            ], {
+                "$set": {
+                    "status": st
+                }
+            }, function(err, game) {
+                if (err) {
+                    Y.log(err, "error", NAME);
+                    cb(err, game);
+                    return;
+                }
+                cb(err, game);
+            });
+        },
+
+        addPlayerToGame: function(userId, gameId, cb) {
+            var me = this;
+            games.findAndModify({
+                "_id": gameId
+            }, [
+                ['_id', 'asc']
+            ], {
                 $push: {
                     players: userId
                 }
+            }, {
+                safe: true,
+                new: true
+            }, function(err, game) {
+                if (err) {
+                    Y.log(err, "error", NAME);
+                    cb(err, game);
+                    return;
+                }
+                Y.log("Players.length: " +game.players.length + " Players: " + game.players + " numplayers: " + game.numPlayers, "debug", NAME);
+                if (game.players.length == game.numPlayers) {
+                    me.setGameStatus(gameId, "In Progress", cb);
+                    return;
+                }
+                cb(err, game);
             });
         },
 
@@ -178,11 +234,15 @@ YUI.add('GameModel', function(Y, NAME) {
             }).toArray(function(err, gs) {
                 if (err) {
                     Y.log(err, "error", NAME);
-                    cb({});
+                    cb({
+                        games: []
+                    });
                     return;
                 }
                 if (!gs) {
-                    cb({});
+                    cb({
+                        games: []
+                    });
                     return;
                 }
                 Y.log(gs, "debug", NAME);
@@ -197,7 +257,7 @@ YUI.add('GameModel', function(Y, NAME) {
             }).toArray(function(error, games) {
                 if (error) {
                     Y.log(error, "error", NAME);
-                    cb({});
+                    cb({games:[]});
                     return;
                 }
                 me.getUsersForGames(games, cb);

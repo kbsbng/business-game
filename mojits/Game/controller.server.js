@@ -2,11 +2,11 @@
 YUI.add('Game', function(Y, NAME) {
     var utils = Y.mojito.businessGameUtils;
 
-/**
- * The Game module.
- *
- * @module Game
- */
+    /**
+     * The Game module.
+     *
+     * @module Game
+     */
 
     /**
      * Constructor for the Controller class.
@@ -23,11 +23,11 @@ YUI.add('Game', function(Y, NAME) {
          *        to the Mojito API.
          */
         index: function(ac) {
-                ac.assets.addCss('./index.css');
-                ac.done({
-                    status: 'Mojito is working.',
-                    data: data
-                });
+            ac.assets.addCss('./index.css');
+            ac.done({
+                status: 'Mojito is working.',
+                data: data
+            });
         },
 
         addnewgame: function(ac) {
@@ -48,7 +48,7 @@ YUI.add('Game', function(Y, NAME) {
             });
         },
 
-        deletegame : function(ac) {
+        deletegame: function(ac) {
             var model, params, redirect;
             model = ac.models.get('GameModel');
             params = ac.params.getFromUrl();
@@ -69,11 +69,26 @@ YUI.add('Game', function(Y, NAME) {
                 ac.done(JSON.stringify(result));
             });
         },
-        
-        deleteuser : function(ac) {
+
+        deleteuser: function(ac) {
             var model = ac.models.get('GameModel');
             model.deleteUser(utils.getUserEmail(ac), function(err, result) {
                 ac.done("Done deleting " + result);
+            });
+        },
+
+        joingame: function(ac) {
+            var model, params;
+            params = ac.params.getFromUrl();
+            model = ac.models.get('GameModel');
+            model.addPlayerToGame(utils.getUserEmail(ac), params.gameId, function(err, game) {
+                if (err) {
+                    Y.log("error: " + err, "error", NAME);
+                    ac.done(JSON.stringify(err));
+                    return;
+                }
+                ac.http.getResponse().setHeader('Content-Type', 'application/json');
+                ac.done(JSON.stringify({status: "Success"}));
             });
         }
 
