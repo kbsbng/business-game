@@ -19,6 +19,7 @@ YUI.add('GameListBinderIndex', function(Y, NAME) {
     Y.namespace('mojito.binders')[NAME] = {
 
         sendAction : function(action, id) {
+            action = action.toLowerCase().replace(/ /g, "-");
             Y.io("/game/action/" + action + "?gameId=" + id, {
 //                method : "POST",
 //                data : {gameId:id},
@@ -26,8 +27,9 @@ YUI.add('GameListBinderIndex', function(Y, NAME) {
                     success : function(id, o, args) {
                         console.log("success");
                         Y.log(o);
+                        Y.log(args);
                         Y.one("#game-list-action-status").set('text', o.responseText);
-                        document.location.reload();
+                        //document.location.reload();
                     },
                     failure : function(id, o, args) {
                         console.log("failure.. ");

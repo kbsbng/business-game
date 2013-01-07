@@ -192,15 +192,7 @@ YUI.add('GameModel', function(Y, NAME) {
             });
         },
 
-        getUsersForGames: function(games, cb) {
-            var playerIds = {};
-            games.forEach(function(game) {
-                game.playerIds = {};
-                game.players.forEach(function(player) {
-                    playerIds[player] = 1;
-                    game.playerIds[player] = 1;
-                });
-            });
+        getUsers: function(playerIds, cb) {
             users.find({
                 "_id": {
                     "$in": Object.keys(playerIds)
@@ -218,11 +210,24 @@ YUI.add('GameModel', function(Y, NAME) {
                 });
                 Y.log(usersObj, "debug", NAME);
                 cb({
-                    games: games,
                     users: usersObj
                 });
             });
+        },
 
+        getUsersForGames: function(games, cb) {
+            var playerIds = {};
+            games.forEach(function(game) {
+                game.playerIds = {};
+                game.players.forEach(function(player) {
+                    playerIds[player] = 1;
+                    game.playerIds[player] = 1;
+                });
+            });
+            this.getUsers(playerIds, function(data) {
+                data.games = games;
+                cb(data);
+            });
         },
 
         getGamesForUser: function(userId, cb) {
@@ -276,10 +281,24 @@ YUI.add('GameModel', function(Y, NAME) {
                 }
                 cb(err, count);
             });
+        },
+
+        getGameDetails: function(gameId, cb) {
+            var me = this;
+            games.findOne({"_id" : gameId}, function(err, game) {
+                var playerIds = {};
+                game.playerIds = {};
+                game.players.forEach(function(player) {
+                    playerIds[player] = 1;
+                    game.playerIds[player] = 1;
+                });
+                me.getUsers(playerIds, function(data) {
+                    data.game = game;
+                    cb(data);
+                });
+            });
         }
-
     };
-
 }, '0.0.1', {
     requires: []
 });

@@ -1,6 +1,7 @@
 /*jslint anon:true, sloppy:true, nomen:true*/
 YUI.add('Game', function(Y, NAME) {
     var utils = Y.mojito.businessGameUtils;
+    var datetime = require('datetime');
 
     /**
      * The Game module.
@@ -89,6 +90,21 @@ YUI.add('Game', function(Y, NAME) {
                 }
                 ac.http.getResponse().setHeader('Content-Type', 'application/json');
                 ac.done(JSON.stringify({status: "Success"}));
+            });
+        },
+
+        play: function(ac) {
+            var model, params;
+            params = ac.params.getFromUrl();
+            model = ac.models.get('GameModel');
+            model.getGameDetails(params.gameId, function(err, data) {
+                if (err) {
+                    Y.log("error: " + err, "error", NAME);
+                    ac.done(JSON.stringify(err));
+                    return;
+                }
+                data.datetime = datetime;
+                ac.done(data);
             });
         }
 

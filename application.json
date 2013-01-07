@@ -64,6 +64,30 @@
             },
             "hello" : {
                 "type" : "Hello"
+            },
+            "gamepage" : {
+                "type" : "HTMLFrameMojit",
+                "config" : {
+                    "deploy": true,
+                    "title" : "Business Board Game - Games List",
+                    "child" : {
+                        "type" : "GameListFrame",
+                        "config" : {
+                            "children" : {
+                                "header" : {
+                                    "type" : "Header"
+                                },
+                                "game" : {
+                                    "type" : "Game",
+                                    "action" : "play"
+                                },
+                                "footer" : {
+                                    "type" : "Footer"
+                                }
+                            }
+                        }
+                    }
+                }
             }
         },
         "yui" : {

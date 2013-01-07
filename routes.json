@@ -35,10 +35,10 @@
         "path" : "/",
         "call" : "games.index"
     },
-    "move" : {
-        "verbs" : ["post"],
-        "path" : "/game/move",
-        "call" : "game.move"
+    "play" : {
+        "verbs" : ["post", "get"],
+        "path" : "/game/action/play",
+        "call" : "gamepage.play"
     },
     "throwDice" : {
         "verbs" : ["post"],
