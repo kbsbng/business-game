@@ -286,6 +286,11 @@ YUI.add('GameModel', function(Y, NAME) {
         getGameDetails: function(gameId, cb) {
             var me = this;
             games.findOne({"_id" : gameId}, function(err, game) {
+                if (err) {
+                    Y.log(err, "error", NAME);
+                    cb(err, game);
+                    return;
+                }
                 var playerIds = {};
                 game.playerIds = {};
                 game.players.forEach(function(player) {
@@ -294,7 +299,7 @@ YUI.add('GameModel', function(Y, NAME) {
                 });
                 me.getUsers(playerIds, function(data) {
                     data.game = game;
-                    cb(data);
+                    cb(err, data);
                 });
             });
         }

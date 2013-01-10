@@ -38,7 +38,7 @@
     "play" : {
         "verbs" : ["post", "get"],
         "path" : "/game/action/play",
-        "call" : "gamepage.play"
+        "call" : "gamepage.index"
     },
     "throwDice" : {
         "verbs" : ["post"],
