@@ -3,12 +3,13 @@
  */
 /*jslint anon:true, sloppy:true, nomen:true*/
 YUI.add('GameListBinderIndex', function(Y, NAME) {
+    testY = Y;
 
-/**
- * The GameListBinderIndex module.
- *
- * @module GameListBinderIndex
- */
+    /**
+     * The GameListBinderIndex module.
+     *
+     * @module GameListBinderIndex
+     */
 
     /**
      * Constructor for the GameListBinderIndex class.
@@ -18,31 +19,6 @@ YUI.add('GameListBinderIndex', function(Y, NAME) {
      */
     Y.namespace('mojito.binders')[NAME] = {
 
-        sendAction : function(action, id) {
-            action = action.toLowerCase().replace(/ /g, "-");
-            Y.io("/game/action/" + action + "?gameId=" + id, {
-//                method : "POST",
-//                data : {gameId:id},
-                on : {
-                    success : function(id, o, args) {
-                        console.log("success");
-                        Y.log(o);
-                        Y.log(args);
-                        Y.one("#game-list-action-status").set('text', o.responseText);
-                        //document.location.reload();
-                    },
-                    failure : function(id, o, args) {
-                        console.log("failure.. ");
-                        Y.log("Response: " + o.responseText);
-                    }
-                },
-                context : this//,
- //               headers : {
-//                    'Content-type' : 'application/javascript'
-  //              }
-            });
-        },
-
         /**
          * Binder initialization method, invoked after all binders on the page
          * have been constructed.
@@ -51,6 +27,48 @@ YUI.add('GameListBinderIndex', function(Y, NAME) {
             this.mojitProxy = mojitProxy;
         },
 
+        sendAction: function(action, id, successCb, failureCb) {
+            Y.io("/game/action/" + action + "?gameId=" + id, {
+                //                method : "POST",
+                //                data : {gameId:id},
+                on: {
+                    success: function(id, o, args) {
+                        console.log("success");
+                        Y.log(o);
+                        Y.log(args);
+                        Y.one("#game-list-action-status").set('text', o.responseText);
+                        successCb();
+                        //document.location.reload();
+                    },
+                    failure: function(id, o, args) {
+                        console.log("failure.. ");
+                        Y.log("Response: " + o.responseText);
+                    }
+                },
+                context: this //,
+                //               headers : {
+                //                    'Content-type' : 'application/javascript'
+                //              }
+            });
+        },
+
+        playHandler: function(id, target) {
+            window.location.href = "/game/action/play?gameId=" + id;
+        },
+
+        deleteHandler: function(id, target) {
+            this.sendAction('delete', id, function() {
+                target.remove();
+            });
+        },
+
+        getElIdFromGameId : function(id) {
+            return "game-list-" + id;
+        },
+
+        getGameIdFromElId : function(id) {
+            return id.replace("game-list-", "");
+        },
         /**
          * The binder method, invoked to allow the mojit to attach DOM event
          * handlers.
@@ -61,12 +79,15 @@ YUI.add('GameListBinderIndex', function(Y, NAME) {
             var me = this;
             this.node = node;
             node.all('.action-button').on('click', function(e) {
-                testE = e;
-                var action, id;
-                id = e.target.ancestor("tr").get("id");
+                var action, elId, gameId, targetGame;
+                targetGame = e.target.ancestor("tr");
+                elId = targetGame.get("id");
+                gameId = me.getGameIdFromElId(elId);
+
                 action = e.target.get('value');
-                Y.log(action + " action called for " + id);
-                me.sendAction(action, id);
+                action = action.toLowerCase().replace(/ /g, "-");
+                Y.log(action + " action called for " + gameId);
+                me[action + 'Handler'](gameId, targetGame);
             });
             /**
              * Example code for the bind method:
@@ -87,4 +108,6 @@ YUI.add('GameListBinderIndex', function(Y, NAME) {
 
     };
 
-}, '0.0.1', {requires: ['event-mouseenter', 'mojito-client', 'io-base']});
+}, '0.0.1', {
+    requires: ['event-mouseenter', 'mojito-client', 'io-base']
+});

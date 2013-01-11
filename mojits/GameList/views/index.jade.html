@@ -10,7 +10,7 @@ div(id=meta.id)
       th Status
       th Actions
     each game, i in games
-      tr(id=game._id)
+      tr(id="game-list-" + game._id)
         td #{game.name}
         td
           each player, i in game.players
