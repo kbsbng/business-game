@@ -27,7 +27,7 @@ YUI.add('Header', function(Y, NAME) {
          */
         index: function(ac) {
                 ac.assets.addCss('./index.css');
-                console.log(ac._adapter.req.getAuthDetails());
+                Y.log(ac._adapter.req.getAuthDetails(), "debug", NAME);
                 ac.done({
                     user : utils.getUserObj(ac)
                 });

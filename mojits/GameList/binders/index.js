@@ -1,8 +1,6 @@
-/*
- * Copyright (c) 2012 Yahoo! Inc. All rights reserved.
- */
+
 /*jslint anon:true, sloppy:true, nomen:true*/
-YUI.add('GameListBinderIndex', function(Y, NAME) {
+YUI.add('GameListBinderIndex', function (Y, NAME) {
     testY = Y;
 
     /**
@@ -23,16 +21,16 @@ YUI.add('GameListBinderIndex', function(Y, NAME) {
          * Binder initialization method, invoked after all binders on the page
          * have been constructed.
          */
-        init: function(mojitProxy) {
+        init: function (mojitProxy) {
             this.mojitProxy = mojitProxy;
         },
 
-        sendAction: function(action, id, successCb, failureCb) {
+        sendAction: function (action, id, successCb, failureCb) {
             Y.io("/game/action/" + action + "?gameId=" + id, {
                 //                method : "POST",
                 //                data : {gameId:id},
                 on: {
-                    success: function(id, o, args) {
+                    success: function (id, o, args) {
                         console.log("success");
                         Y.log(o);
                         Y.log(args);
@@ -40,9 +38,10 @@ YUI.add('GameListBinderIndex', function(Y, NAME) {
                         successCb();
                         //document.location.reload();
                     },
-                    failure: function(id, o, args) {
+                    failure: function (id, o, args) {
                         console.log("failure.. ");
                         Y.log("Response: " + o.responseText);
+                        failureCb(id, o, args);
                     }
                 },
                 context: this //,
@@ -52,21 +51,27 @@ YUI.add('GameListBinderIndex', function(Y, NAME) {
             });
         },
 
-        playHandler: function(id, target) {
+        playHandler: function (id, target) {
             window.location.href = "/game/action/play?gameId=" + id;
         },
 
-        deleteHandler: function(id, target) {
-            this.sendAction('delete', id, function() {
+        deleteHandler: function (id, target) {
+            this.sendAction('delete', id, function () {
                 target.remove();
             });
         },
 
-        getElIdFromGameId : function(id) {
+        resignHandler: function (id, target) {
+            this.sendAction('resign', id, function () {
+                window.location.href = "/";
+            });
+        },
+
+        getElIdFromGameId: function (id) {
             return "game-list-" + id;
         },
 
-        getGameIdFromElId : function(id) {
+        getGameIdFromElId: function (id) {
             return id.replace("game-list-", "");
         },
         /**
@@ -75,10 +80,10 @@ YUI.add('GameListBinderIndex', function(Y, NAME) {
          *
          * @param node {Node} The DOM node to which this mojit is attached.
          */
-        bind: function(node) {
+        bind: function (node) {
             var me = this;
             this.node = node;
-            node.all('.action-button').on('click', function(e) {
+            node.all('.action-button').on('click', function (e) {
                 var action, elId, gameId, targetGame;
                 targetGame = e.target.ancestor("tr");
                 elId = targetGame.get("id");
@@ -98,7 +103,7 @@ YUI.add('GameListBinderIndex', function(Y, NAME) {
              *
              * });
              * node.all('dt').on('mouseleave', function(evt) {
-             *   
+             *
              *   var dd = '#dd_' + evt.target.get('text');
              *   me.node.one(dd).removeClass('sel');
              *

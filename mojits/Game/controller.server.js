@@ -50,7 +50,7 @@ YUI.add('Game', function(Y, NAME) {
         },
 
         deletegame: function(ac) {
-            var model, params, redirect;
+            var model, params;
             model = ac.models.get('GameModel');
             params = ac.params.getFromUrl();
             console.log("Params: ");
@@ -105,6 +105,21 @@ YUI.add('Game', function(Y, NAME) {
                 }
                 data.datetime = datetime;
                 ac.done(data);
+            });
+        },
+
+        resign: function(ac) {
+            var model, params;
+            params = ac.params.getFromUrl();
+            model = ac.models.get('GameModel');
+            model.resignGame(utils.getUserEmail(ac), params.gameId, function(err, game) {
+                if (err) {
+                    Y.log("error: " + err, "error", NAME);
+                    ac.done(JSON.stringify(err));
+                    return;
+                }
+                ac.http.getResponse().setHeader('Content-Type', 'application/json');
+                ac.done(JSON.stringify({status: "Success"}));
             });
         }
 

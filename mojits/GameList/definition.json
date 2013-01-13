@@ -3,7 +3,8 @@
         "settings": [ "master" ],
         "actions" : {
             "Awaiting Players": [ "Delete" ],
-            "In Progress" : [ "Play" ]
+            "In Progress" : [ "Play", "Resign", "Delete" ],
+            "Over" : []
         }
     }
 ]

@@ -20,6 +20,11 @@
         "path" : "/game/action/join-game",
         "call" : "game.joingame"
     },
+    "resigngame" : {
+        "verbs" : ["get", "post"],
+        "path" : "/game/action/resign",
+        "call" : "game.resign"
+    },
     "deleteuser" : {
         "verbs" : ["get", "post"],
         "path" : "/game/deleteuser",
