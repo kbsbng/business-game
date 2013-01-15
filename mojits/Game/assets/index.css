@@ -1,2 +1,50 @@
-dt { font-weight: bold; }
-.sel { background-color: #FF4; }
+dt {
+    font-weight: bold;
+}
+
+.sel {
+    background-color: #FF4;
+}
+
+#game-play-board .board-square {
+    display: inline-block;
+    width: 7em;
+    vertical-align: middle;
+    border: 1px solid #000000;
+}
+
+#game-play-board .place-title {
+    text-align: center;
+    font-weight: bold;
+    font-size: 1em;
+}
+
+#game-play-board .orange {
+    background-color: orange
+}
+
+#game-play-board .magenta {
+    background-color: #ffb6c1;
+}
+
+#game-play-board .blue {
+    background-color: #87cefa;
+}
+
+#game-play-board .yellow {
+    background-color: yellow
+}
+
+#game-play-board .green {
+    background-color: #32cd32;
+}
+
+#game-play-board ul {
+    font-size: 0.5em;
+    margin: 0;
+}
+
+#game-play-board .desc-title {
+    font-size: 0.7em;
+    font-weight: bold;
+}

@@ -26,8 +26,7 @@ YUI.add('Game', function(Y, NAME) {
         index: function(ac) {
             ac.assets.addCss('./index.css');
             ac.done({
-                status: 'Mojito is working.',
-                data: data
+                status: 'Mojito is working.'
             });
         },
 
@@ -74,6 +73,11 @@ YUI.add('Game', function(Y, NAME) {
         deleteuser: function(ac) {
             var model = ac.models.get('GameModel');
             model.deleteUser(utils.getUserEmail(ac), function(err, result) {
+                if (err) {
+                    Y.log("error: " + err, "error", NAME);
+                    ac.done(JSON.stringify(err));
+                    return;
+                }
                 ac.done("Done deleting " + result);
             });
         },
@@ -88,6 +92,7 @@ YUI.add('Game', function(Y, NAME) {
                     ac.done(JSON.stringify(err));
                     return;
                 }
+                Y.log(game, "debug", NAME);
                 ac.http.getResponse().setHeader('Content-Type', 'application/json');
                 ac.done(JSON.stringify({status: "Success"}));
             });
@@ -97,6 +102,8 @@ YUI.add('Game', function(Y, NAME) {
             var model, params;
             params = ac.params.getFromUrl();
             model = ac.models.get('GameModel');
+            ac.assets.addCss('./index.css');
+            ac.assets.addCss('./play.css');
             model.getGameDetails(params.gameId, function(err, data) {
                 if (err) {
                     Y.log("error: " + err, "error", NAME);
@@ -118,6 +125,7 @@ YUI.add('Game', function(Y, NAME) {
                     ac.done(JSON.stringify(err));
                     return;
                 }
+                Y.log(game, "debug", NAME);
                 ac.http.getResponse().setHeader('Content-Type', 'application/json');
                 ac.done(JSON.stringify({status: "Success"}));
             });

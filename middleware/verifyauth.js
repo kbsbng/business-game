@@ -8,6 +8,10 @@ var fbId = process.env.FACEBOOK_APP_ID;
 var fbSecret = process.env.FACEBOOK_SECRET;
 var nonLoginPatterns = ['^/combo~', '^/static', '^/login'];
 module.exports = function(req, res, next) {
+    if (process.env.ENV == "dev") {
+        next();
+        return;
+    }
     var i;
     console.log("Url: "+ req.url);
     if (nonLoginPaths[req.url]) {
@@ -34,7 +38,7 @@ module.exports = function(req, res, next) {
                 //res.send("<html><h1>Hello Google user:" + JSON.stringify( req.getAuthDetails() ) + ".</h1></html>");
                 return;
             }
-            console.log("not authenitcated!! Facebook authentication failed");
+            console.log("not authenitcated!!  authentication failed");
             //res.send("<html><h1>Facebook authentication failed :( </h1></html>");
         });
         return;

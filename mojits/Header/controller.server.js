@@ -35,4 +35,4 @@ YUI.add('Header', function(Y, NAME) {
 
     };
 
-}, '0.0.1', {requires: ['mojito', 'mojito-assets-addon', 'mojito-models-addon', 'business-game-util']});
+}, '0.0.1', {requires: ['mojito', 'mojito-assets-addon', 'mojito-models-addon', 'business-game-util', 'mojito-params-addon']});

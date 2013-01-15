@@ -1,3 +1,29 @@
 div(id=meta.id)
   div(class="status-bar") #{game.status}
+    div(id="game-play-player-list")
+      each player, i in game.players
+        a(href="#") #{users[player].name}
+        if game.turn == player
+          span *
+        &nbsp;
+  div(id="game-play-board")
+    each place, i in places
+      - var placeInfo = placesInfo[place]
+      - var type = placeInfo.type
+      - var top = null
+      - var left = null
 
+      div(class=type+" "+placeInfo.color+" board-square")
+        div(class="place-title")
+          | #{place}
+        if type == "place"
+          div(class="desc-title") Cost
+          ul
+            li Site: #{placeInfo.cost.site}
+            li House: #{placeInfo.cost.house}
+            li Hotel: #{placeInfo.cost.hotel}
+          div(class="desc-title") Rent
+          ul
+            li Site: #{placeInfo.rent.site}
+            li House: #{placeInfo.rent.house}
+            li Hotel: #{placeInfo.rent.hotel}

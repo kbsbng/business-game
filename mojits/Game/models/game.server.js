@@ -1,6 +1,6 @@
 /*jslint anon:true, sloppy:true, nomen:true*/
 YUI.add('GameModel', function (Y, NAME) {
-    var mongo, db, users, games;
+    var mongo, db, users, games, places, placesInfo;
     mongo = require('mongoskin');
     db = mongo.db(process.env.MONGOHQ_URL, {
         //database: 'app10104342',
@@ -10,6 +10,409 @@ YUI.add('GameModel', function (Y, NAME) {
     });
     users = db.collection('users');
     games = db.collection("games");
+
+    places = [
+        "Start",
+        "Bangalore",
+        "New York",
+        "Paris",
+        "Luck",
+        "Cairo",
+        "Melbourne",
+        "Pune",
+        "Jail",
+        "Chennai",
+        "California",
+        "London",
+        "Luck",
+        "Cape Town",
+        "Ottawa",
+        "Sydney",
+        "Resort",
+        "Kolkata",
+        "Texas",
+        "Perth",
+        "Moscow",
+        "Lagos",
+        "Canberra",
+        "Madrid",
+        "Club Party",
+        "Algiers",
+        "New Delhi",
+        "Mexico City",
+        "Luck",
+        "Frankfurt",
+        "Alexandria",
+        "Wellington"
+    ];
+
+    placesInfo = {
+        "Start" : {
+            "type" : "start"
+        },
+        "Bangalore" : {
+            "type" : "place",
+            "color" : "orange",
+            "rent" : {
+                "site" : 400,
+                "house" : 1000,
+                "hotel" : 2000
+            },
+            "cost" : {
+                "site" : 4000,
+                "house" : 8000,
+                "hotel" : 8000
+            }
+        },
+        "New York" : {
+            "type" : "place",
+            "color" : "magenta",
+            "rent" : {
+                "site" : 800,
+                "house" : 2000,
+                "hotel" : 4000
+            },
+            "cost" : {
+                "site" : 8000,
+                "house" : 10000,
+                "hotel" : 10000
+            }
+        },
+        "Paris" : {
+            "type" : "place",
+            "color" : "blue",
+            "rent" : {
+                "site" : 200,
+                "house" : 800,
+                "hotel" : 1000
+            },
+            "cost" : {
+                "site" : 2000,
+                "house" : 4000,
+                "hotel" : 4000
+            }
+        },
+        "Cairo" : {
+            "type" : "place",
+            "color" : "green",
+            "rent" : {
+                "site" : 100,
+                "house" : 400,
+                "hotel" : 800
+            },
+            "cost" : {
+                "site" : 800,
+                "house" : 2000,
+                "hotel" : 2000
+            }
+        },
+        "Melbourne" : {
+            "type" : "place",
+            "color" : "yellow",
+            "rent" : {
+                "site" : 500,
+                "house" : 2000,
+                "hotel" : 4000
+            },
+            "cost" : {
+                "site" : 3500,
+                "house" : 7500,
+                "hotel" : 7500
+            }
+        },
+        "Pune" : {
+            "type" : "place",
+            "color" : "orange",
+            "rent" : {
+                "site" : 300,
+                "house" : 750,
+                "hotel" : 1800
+            },
+            "cost" : {
+                "site" : 3000,
+                "house" : 6500,
+                "hotel" : 6500
+            }
+        },
+        "Jail" : {
+            type: "jail"
+        },
+        "Chennai" : {
+            type: "place",
+            "color" : "orange",
+            "rent" : {
+                "site" : 350,
+                "house" : 900,
+                "hotel" : 1700
+            },
+            "cost" : {
+                "site" : 3500,
+                "house" : 7500,
+                "hotel" : 7500
+            }
+        },
+        "California": {
+            type: "place",
+            "color" : "magenta",
+            "rent" : {
+                "site" : 700,
+                "house" : 1800,
+                "hotel" : 3600
+            },
+            "cost" : {
+                "site" : 7500,
+                "house" : 8000,
+                "hotel" : 8000
+            }
+        },
+        "London": {
+            type: "place",
+            "color" : "blue",
+            "rent" : {
+                "site" : 500,
+                "house" : 2000,
+                "hotel" : 4000
+            },
+            "cost" : {
+                "site" : 3500,
+                "house" : 7500,
+                "hotel" : 7500
+            }
+        },
+        "Cape Town": {
+            type: "place",
+            color : "blue",
+            "rent" : {
+                "site" : 400,
+                "house" : 1500,
+                "hotel" : 3000
+            },
+            "cost" : {
+                "site" : 4000,
+                "house" : 4500,
+                "hotel" : 4500
+            }
+        },
+        "Ottawa": {
+            type: "place",
+            "color" : "magenta",
+            "rent" : {
+                "site" : 700,
+                "house" : 1800,
+                "hotel" : 3600
+            },
+            "cost" : {
+                "site" : 7500,
+                "house" : 8000,
+                "hotel" : 8000
+            }
+        },
+        "Sydney": {
+            type: "place",
+            color: "yellow",
+            "rent" : {
+                "site" : 600,
+                "house" : 2300,
+                "hotel" : 3800
+            },
+            "cost" : {
+                "site" : 3900,
+                "house" : 7800,
+                "hotel" : 7800
+            }
+        },
+        "Resort": {
+            type: "resort"
+        },
+        "Kolkata": {
+            type: "place",
+            "color" : "orange",
+            "rent" : {
+                "site" : 200,
+                "house" : 400,
+                "hotel" : 1000
+            },
+            "cost" : {
+                "site" : 800,
+                "house" : 1500,
+                "hotel" : 1500
+            }
+        },
+        "Texas": {
+            type: "place",
+            color: "magenta",
+            "rent" : {
+                "site" : 600,
+                "house" : 2400,
+                "hotel" : 3900
+            },
+            "cost" : {
+                "site" : 4000,
+                "house" : 7900,
+                "hotel" : 7900
+            }
+        },
+        "Perth": {
+            type: "place",
+            color: "yellow",
+            "rent" : {
+                "site" : 400,
+                "house" : 900,
+                "hotel" : 1600
+            },
+            "cost" : {
+                "site" : 1200,
+                "house" : 2400,
+                "hotel" : 2400
+            }
+        },
+        "Moscow": {
+            type: "place",
+            "color" : "blue",
+            "rent" : {
+                "site" : 400,
+                "house" : 800,
+                "hotel" : 1200
+            },
+            "cost" : {
+                "site" : 1000,
+                "house" : 2500,
+                "hotel" : 2500
+            }
+        },
+        "Lagos": {
+            type: "place",
+            "color" : "green",
+            "rent" : {
+                "site" : 100,
+                "house" : 400,
+                "hotel" : 800
+            },
+            "cost" : {
+                "site" : 700,
+                "house" : 1500,
+                "hotel" : 1500
+            }
+        },
+        "Canberra": {
+            type: "place",
+            color: "yellow",
+            "rent" : {
+                "site" : 800,
+                "house" : 2400,
+                "hotel" : 3000
+            },
+            "cost" : {
+                "site" : 3600,
+                "house" : 7000,
+                "hotel" : 7000
+            }
+        },
+        "Madrid": {
+            type: "place",
+            "color" : "blue",
+            "rent" : {
+                "site" : 200,
+                "house" : 700,
+                "hotel" : 1100
+            },
+            "cost" : {
+                "site" : 800,
+                "house" : 1200,
+                "hotel" : 1200
+            }
+        },
+        "Club Party": {
+            type: "club"
+        },
+        "Algiers": {
+            type: "place",
+            "color" : "green",
+            "rent" : {
+                "site" : 400,
+                "house" : 1000,
+                "hotel" : 1500
+            },
+            "cost" : {
+                "site" : 900,
+                "house" : 1900,
+                "hotel" : 1900
+            }
+        },
+        "New Delhi": {
+            type: "place",
+            "color" : "orange",
+            "rent" : {
+                "site" : 600,
+                "house" : 1200,
+                "hotel" : 2300
+            },
+            "cost" : {
+                "site" : 4500,
+                "house" : 8500,
+                "hotel" : 8500
+            }
+        },
+        "Mexico City": {
+            type: "place",
+            "color" : "magenta",
+            "rent" : {
+                "site" : 500,
+                "house" : 950,
+                "hotel" : 1750
+            },
+            "cost" : {
+                "site" : 2150,
+                "house" : 4000,
+                "hotel" : 4000
+            }
+        },
+        "Luck": {
+            type: "luck"
+        },
+        "Frankfurt": {
+            type: "place",
+            "color" : "blue",
+            "rent" : {
+                "site" : 400,
+                "house" : 1400,
+                "hotel" : 2500
+            },
+            "cost" : {
+                "site" : 1500,
+                "house" : 3000,
+                "hotel" : 3000
+            }
+        },
+        "Alexandria": {
+            type: "place",
+            "color" : "green",
+            "rent" : {
+                "site" : 300,
+                "house" : 800,
+                "hotel" : 1500
+            },
+            "cost" : {
+                "site" : 800,
+                "house" : 2000,
+                "hotel" : 2000
+            }
+        },
+        "Wellington": {
+            type: "place",
+            "color" : "yellow",
+            "rent" : {
+                "site" : 400,
+                "house" : 1200,
+                "hotel" : 2000
+            },
+            "cost" : {
+                "site" : 1800,
+                "house" : 2900,
+                "hotel" : 2900
+            }
+        }
+    };
 
     Y.namespace('mojito.models')[NAME] = {
 
@@ -327,7 +730,10 @@ YUI.add('GameModel', function (Y, NAME) {
                     game.playerIds[player] = 1;
                 });
                 me.getUsers(playerIds, function (data) {
+                    Y.log(playerIds, "debug", NAME);
                     data.game = game;
+                    data.places = places;
+                    data.placesInfo = placesInfo;
                     cb(err, data);
                 });
             });
