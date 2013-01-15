@@ -1,0 +1,34 @@
+#game-play-board {position: relative;width: 63em; height: 63em;}
+#game-play-board .board-square {position: absolute;height:7em;width:7em;}
+#game-play-board :nth-child(1) {left: 0em;}
+#game-play-board :nth-child(2) {left: 7em;}
+#game-play-board :nth-child(3) {left: 14em;}
+#game-play-board :nth-child(4) {left: 21em;}
+#game-play-board :nth-child(5) {left: 28em;}
+#game-play-board :nth-child(6) {left: 35em;}
+#game-play-board :nth-child(7) {left: 42em;}
+#game-play-board :nth-child(8) {left: 49em;}
+#game-play-board :nth-child(9) {left: 56em;}
+#game-play-board :nth-child(10) {top: 7em; left: 56em;}
+#game-play-board :nth-child(11) {top: 14em; left: 56em;}
+#game-play-board :nth-child(12) {top: 21em; left: 56em;}
+#game-play-board :nth-child(13) {top: 28em; left: 56em;}
+#game-play-board :nth-child(14) {top: 35em; left: 56em;}
+#game-play-board :nth-child(15) {top: 42em; left: 56em;}
+#game-play-board :nth-child(16) {top: 49em; left: 56em;}
+#game-play-board :nth-child(17) {top: 56em; left: 56em;}
+#game-play-board :nth-child(18) {top: 56em; left: 49em;}
+#game-play-board :nth-child(19) {top: 56em; left: 42em;}
+#game-play-board :nth-child(20) {top: 56em; left: 35em;}
+#game-play-board :nth-child(21) {top: 56em; left: 28em;}
+#game-play-board :nth-child(22) {top: 56em; left: 21em;}
+#game-play-board :nth-child(23) {top: 56em; left: 14em;}
+#game-play-board :nth-child(24) {top: 56em; left: 7em;}
+#game-play-board :nth-child(25) {top: 56em; left: 0em;}
+#game-play-board :nth-child(26) {top: 49em;}
+#game-play-board :nth-child(27) {top: 42em;}
+#game-play-board :nth-child(28) {top: 35em;}
+#game-play-board :nth-child(29) {top: 28em;}
+#game-play-board :nth-child(30) {top: 21em;}
+#game-play-board :nth-child(31) {top: 14em;}
+#game-play-board :nth-child(32) {top: 7em;}
