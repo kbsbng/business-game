@@ -1,4 +1,10 @@
 YUI.add('business-game-util', function(Y) {
+    const mockUserData = {
+        "1" : {name: "Keshavaprasad B S", email: "kbsbng@gmail.com"},
+        "2" :  {name: "Smitha", email: "smitha.srikumar1@gmail.com"}
+    };
+    var fs;
+    fs = require("fs");
     Y.mojito.businessGameUtils = {
         getUserName : function(ac) {
             return this.getUserObj(ac).name;
@@ -8,10 +14,8 @@ YUI.add('business-game-util', function(Y) {
         },
         getUserObj : function(ac) {
             if (process.env.ENV == "dev") {
-                if (ac.params.getFromUrl().user == 2) {
-                    return {name: "Smitha", email: "smitha.srikumar1@gmail.com"};
-                }
-                return {name: "Keshavaprasad B S", email: "kbsbng@gmail.com"};
+                var user = fs.readFileSync("./userData.txt").toString();
+                return mockUserData[user];
             }
             return ac._adapter.req.getAuthDetails().user;
         }
