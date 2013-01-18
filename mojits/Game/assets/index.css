@@ -6,6 +6,22 @@ dt {
     background-color: #FF4;
 }
 
+.pawn .blue {
+    color: blue;
+}
+
+.pawn .red {
+    color: red;
+}
+
+.pawn .yellow {
+    color: #b8860b;
+}
+
+.pawn .orange{
+    color: #ff4500;
+}
+
 #game-play-board .board-square {
     display: inline-block;
     width: 7em;

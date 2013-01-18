@@ -1,11 +1,24 @@
 div(id=meta.id)
   div(class="status-bar") #{game.status}
-    div(id="game-play-player-list")
-      each player, i in game.players
-        a(href="#") #{users[player].name}
-        if game.turn == player
-          span *
-        &nbsp;
+  table(id="game-play-player-list")
+    tr
+      th Name
+      th Money
+      th Pawn
+    each player, i in game.players
+      - var playerIdx = player.replace(/\./g, "(")
+      tr
+        td
+          a(href="#") #{users[player].name}
+          if game.turn == player
+            span *
+        td #{game.playerStatus[playerIdx].money}
+        td(class="pawn")
+            span(class=game.playerStatus[playerIdx].color) O
+
+  if game.turn == user.id
+    button(id="game-play-throw-dice") Throw Dice
+
   div(id="game-play-board")
     each place, i in places
       - var placeInfo = placesInfo[place]
@@ -27,3 +40,9 @@ div(id=meta.id)
             li Site: #{placeInfo.rent.site}
             li House: #{placeInfo.rent.house}
             li Hotel: #{placeInfo.rent.hotel}
+        if typeof (game.positionStatus[i]) !== "undefined" && typeof (game.positionStatus[i].players) !== "undefined" && game.positionStatus[i].players.length != 0
+          span(class="occupants")
+            each player, j in game.positionStatus[i].players
+              - var playerIdx = player.replace(/\./g, "(")
+              span(class="pawn")
+                span(class=game.playerStatus[playerIdx].color) O

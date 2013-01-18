@@ -547,14 +547,19 @@ YUI.add('GameModel', function (Y, NAME) {
 
         setGameStatusToInProgress: function (gameId, gameObj, cb) {
             Y.log("Setting status of gameid " + gameId + " to " + "In Progress", "debug", NAME);
-            var newSettings;
+            var newSettings, colors;
+            colors = ["blue", "red", "yellow", "orange"];
             newSettings = {};
             newSettings.status = "In Progress";
             newSettings.turn = gameObj.players[0];
-            gameObj.players.forEach(function (player) {
+            gameObj.players.forEach(function (player, i) {
                 player = player.replace(/\./g, "(");
                 newSettings['playerStatus.' + player +'.status'] = "Playing";
+                newSettings['playerStatus.' + player +'.money'] = 25000;
+                newSettings['playerStatus.' + player +'.position'] = 0;
+                newSettings['playerStatus.' + player +'.color'] = colors[i];
             });
+            newSettings['positionStatus.0.players'] = gameObj.players;
             games.findAndModify({
                 "_id": gameId
             }, [

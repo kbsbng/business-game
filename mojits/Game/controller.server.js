@@ -111,6 +111,7 @@ YUI.add('Game', function(Y, NAME) {
                     return;
                 }
                 data.datetime = datetime;
+                data.user = { id : utils.getUserEmail(ac) };
                 ac.done(data);
             });
         },
@@ -129,6 +130,10 @@ YUI.add('Game', function(Y, NAME) {
                 ac.http.getResponse().setHeader('Content-Type', 'application/json');
                 ac.done(JSON.stringify({status: "Success"}));
             });
+        },
+
+        throwDice: function(ac) {
+
         }
 
     };
