@@ -1,12 +1,11 @@
 /*jslint anon:true, sloppy:true, nomen:true*/
+/*global YUI*/
 YUI.add('GameModel', function (Y, NAME) {
-    var mongo, db, users, games, places, placesInfo;
+    var mongo, db, users, games, places, placesInfo, TURN_TO;
     mongo = require('mongoskin');
+    //noinspection JSUnresolvedVariable
     db = mongo.db(process.env.MONGOHQ_URL, {
-        //database: 'app10104342',
         safe: true
-        //username: process.env.MONGOHQ_USERNAME,
-        //password: process.env.MONGOHQ_PASSWORD
     });
     users = db.collection('users');
     games = db.collection("games");
@@ -47,178 +46,178 @@ YUI.add('GameModel', function (Y, NAME) {
     ];
 
     placesInfo = {
-        "Start" : {
-            "type" : "start"
+        "Start": {
+            "type": "start"
         },
-        "Bangalore" : {
-            "type" : "place",
-            "color" : "orange",
-            "rent" : {
-                "site" : 400,
-                "house" : 1000,
-                "hotel" : 2000
+        "Bangalore": {
+            "type": "place",
+            "color": "orange",
+            "rent": {
+                "site": 400,
+                "house": 1000,
+                "hotel": 2000
             },
-            "cost" : {
-                "site" : 4000,
-                "house" : 8000,
-                "hotel" : 8000
+            "cost": {
+                "site": 4000,
+                "house": 8000,
+                "hotel": 8000
             }
         },
-        "New York" : {
-            "type" : "place",
-            "color" : "magenta",
-            "rent" : {
-                "site" : 800,
-                "house" : 2000,
-                "hotel" : 4000
+        "New York": {
+            "type": "place",
+            "color": "magenta",
+            "rent": {
+                "site": 800,
+                "house": 2000,
+                "hotel": 4000
             },
-            "cost" : {
-                "site" : 8000,
-                "house" : 10000,
-                "hotel" : 10000
+            "cost": {
+                "site": 8000,
+                "house": 10000,
+                "hotel": 10000
             }
         },
-        "Paris" : {
-            "type" : "place",
-            "color" : "blue",
-            "rent" : {
-                "site" : 200,
-                "house" : 800,
-                "hotel" : 1000
+        "Paris": {
+            "type": "place",
+            "color": "blue",
+            "rent": {
+                "site": 200,
+                "house": 800,
+                "hotel": 1000
             },
-            "cost" : {
-                "site" : 2000,
-                "house" : 4000,
-                "hotel" : 4000
+            "cost": {
+                "site": 2000,
+                "house": 4000,
+                "hotel": 4000
             }
         },
-        "Cairo" : {
-            "type" : "place",
-            "color" : "green",
-            "rent" : {
-                "site" : 100,
-                "house" : 400,
-                "hotel" : 800
+        "Cairo": {
+            "type": "place",
+            "color": "green",
+            "rent": {
+                "site": 100,
+                "house": 400,
+                "hotel": 800
             },
-            "cost" : {
-                "site" : 800,
-                "house" : 2000,
-                "hotel" : 2000
+            "cost": {
+                "site": 800,
+                "house": 2000,
+                "hotel": 2000
             }
         },
-        "Melbourne" : {
-            "type" : "place",
-            "color" : "yellow",
-            "rent" : {
-                "site" : 500,
-                "house" : 2000,
-                "hotel" : 4000
+        "Melbourne": {
+            "type": "place",
+            "color": "yellow",
+            "rent": {
+                "site": 500,
+                "house": 2000,
+                "hotel": 4000
             },
-            "cost" : {
-                "site" : 3500,
-                "house" : 7500,
-                "hotel" : 7500
+            "cost": {
+                "site": 3500,
+                "house": 7500,
+                "hotel": 7500
             }
         },
-        "Pune" : {
-            "type" : "place",
-            "color" : "orange",
-            "rent" : {
-                "site" : 300,
-                "house" : 750,
-                "hotel" : 1800
+        "Pune": {
+            "type": "place",
+            "color": "orange",
+            "rent": {
+                "site": 300,
+                "house": 750,
+                "hotel": 1800
             },
-            "cost" : {
-                "site" : 3000,
-                "house" : 6500,
-                "hotel" : 6500
+            "cost": {
+                "site": 3000,
+                "house": 6500,
+                "hotel": 6500
             }
         },
-        "Jail" : {
+        "Jail": {
             type: "jail"
         },
-        "Chennai" : {
+        "Chennai": {
             type: "place",
-            "color" : "orange",
-            "rent" : {
-                "site" : 350,
-                "house" : 900,
-                "hotel" : 1700
+            "color": "orange",
+            "rent": {
+                "site": 350,
+                "house": 900,
+                "hotel": 1700
             },
-            "cost" : {
-                "site" : 3500,
-                "house" : 7500,
-                "hotel" : 7500
+            "cost": {
+                "site": 3500,
+                "house": 7500,
+                "hotel": 7500
             }
         },
         "California": {
             type: "place",
-            "color" : "magenta",
-            "rent" : {
-                "site" : 700,
-                "house" : 1800,
-                "hotel" : 3600
+            "color": "magenta",
+            "rent": {
+                "site": 700,
+                "house": 1800,
+                "hotel": 3600
             },
-            "cost" : {
-                "site" : 7500,
-                "house" : 8000,
-                "hotel" : 8000
+            "cost": {
+                "site": 7500,
+                "house": 8000,
+                "hotel": 8000
             }
         },
         "London": {
             type: "place",
-            "color" : "blue",
-            "rent" : {
-                "site" : 500,
-                "house" : 2000,
-                "hotel" : 4000
+            "color": "blue",
+            "rent": {
+                "site": 500,
+                "house": 2000,
+                "hotel": 4000
             },
-            "cost" : {
-                "site" : 3500,
-                "house" : 7500,
-                "hotel" : 7500
+            "cost": {
+                "site": 3500,
+                "house": 7500,
+                "hotel": 7500
             }
         },
         "Cape Town": {
             type: "place",
-            color : "blue",
-            "rent" : {
-                "site" : 400,
-                "house" : 1500,
-                "hotel" : 3000
+            color: "blue",
+            "rent": {
+                "site": 400,
+                "house": 1500,
+                "hotel": 3000
             },
-            "cost" : {
-                "site" : 4000,
-                "house" : 4500,
-                "hotel" : 4500
+            "cost": {
+                "site": 4000,
+                "house": 4500,
+                "hotel": 4500
             }
         },
         "Ottawa": {
             type: "place",
-            "color" : "magenta",
-            "rent" : {
-                "site" : 700,
-                "house" : 1800,
-                "hotel" : 3600
+            "color": "magenta",
+            "rent": {
+                "site": 700,
+                "house": 1800,
+                "hotel": 3600
             },
-            "cost" : {
-                "site" : 7500,
-                "house" : 8000,
-                "hotel" : 8000
+            "cost": {
+                "site": 7500,
+                "house": 8000,
+                "hotel": 8000
             }
         },
         "Sydney": {
             type: "place",
             color: "yellow",
-            "rent" : {
-                "site" : 600,
-                "house" : 2300,
-                "hotel" : 3800
+            "rent": {
+                "site": 600,
+                "house": 2300,
+                "hotel": 3800
             },
-            "cost" : {
-                "site" : 3900,
-                "house" : 7800,
-                "hotel" : 7800
+            "cost": {
+                "site": 3900,
+                "house": 7800,
+                "hotel": 7800
             }
         },
         "Resort": {
@@ -226,100 +225,100 @@ YUI.add('GameModel', function (Y, NAME) {
         },
         "Kolkata": {
             type: "place",
-            "color" : "orange",
-            "rent" : {
-                "site" : 200,
-                "house" : 400,
-                "hotel" : 1000
+            "color": "orange",
+            "rent": {
+                "site": 200,
+                "house": 400,
+                "hotel": 1000
             },
-            "cost" : {
-                "site" : 800,
-                "house" : 1500,
-                "hotel" : 1500
+            "cost": {
+                "site": 800,
+                "house": 1500,
+                "hotel": 1500
             }
         },
         "Texas": {
             type: "place",
             color: "magenta",
-            "rent" : {
-                "site" : 600,
-                "house" : 2400,
-                "hotel" : 3900
+            "rent": {
+                "site": 600,
+                "house": 2400,
+                "hotel": 3900
             },
-            "cost" : {
-                "site" : 4000,
-                "house" : 7900,
-                "hotel" : 7900
+            "cost": {
+                "site": 4000,
+                "house": 7900,
+                "hotel": 7900
             }
         },
         "Perth": {
             type: "place",
             color: "yellow",
-            "rent" : {
-                "site" : 400,
-                "house" : 900,
-                "hotel" : 1600
+            "rent": {
+                "site": 400,
+                "house": 900,
+                "hotel": 1600
             },
-            "cost" : {
-                "site" : 1200,
-                "house" : 2400,
-                "hotel" : 2400
+            "cost": {
+                "site": 1200,
+                "house": 2400,
+                "hotel": 2400
             }
         },
         "Moscow": {
             type: "place",
-            "color" : "blue",
-            "rent" : {
-                "site" : 400,
-                "house" : 800,
-                "hotel" : 1200
+            "color": "blue",
+            "rent": {
+                "site": 400,
+                "house": 800,
+                "hotel": 1200
             },
-            "cost" : {
-                "site" : 1000,
-                "house" : 2500,
-                "hotel" : 2500
+            "cost": {
+                "site": 1000,
+                "house": 2500,
+                "hotel": 2500
             }
         },
         "Lagos": {
             type: "place",
-            "color" : "green",
-            "rent" : {
-                "site" : 100,
-                "house" : 400,
-                "hotel" : 800
+            "color": "green",
+            "rent": {
+                "site": 100,
+                "house": 400,
+                "hotel": 800
             },
-            "cost" : {
-                "site" : 700,
-                "house" : 1500,
-                "hotel" : 1500
+            "cost": {
+                "site": 700,
+                "house": 1500,
+                "hotel": 1500
             }
         },
         "Canberra": {
             type: "place",
             color: "yellow",
-            "rent" : {
-                "site" : 800,
-                "house" : 2400,
-                "hotel" : 3000
+            "rent": {
+                "site": 800,
+                "house": 2400,
+                "hotel": 3000
             },
-            "cost" : {
-                "site" : 3600,
-                "house" : 7000,
-                "hotel" : 7000
+            "cost": {
+                "site": 3600,
+                "house": 7000,
+                "hotel": 7000
             }
         },
         "Madrid": {
             type: "place",
-            "color" : "blue",
-            "rent" : {
-                "site" : 200,
-                "house" : 700,
-                "hotel" : 1100
+            "color": "blue",
+            "rent": {
+                "site": 200,
+                "house": 700,
+                "hotel": 1100
             },
-            "cost" : {
-                "site" : 800,
-                "house" : 1200,
-                "hotel" : 1200
+            "cost": {
+                "site": 800,
+                "house": 1200,
+                "hotel": 1200
             }
         },
         "Club Party": {
@@ -327,44 +326,44 @@ YUI.add('GameModel', function (Y, NAME) {
         },
         "Algiers": {
             type: "place",
-            "color" : "green",
-            "rent" : {
-                "site" : 400,
-                "house" : 1000,
-                "hotel" : 1500
+            "color": "green",
+            "rent": {
+                "site": 400,
+                "house": 1000,
+                "hotel": 1500
             },
-            "cost" : {
-                "site" : 900,
-                "house" : 1900,
-                "hotel" : 1900
+            "cost": {
+                "site": 900,
+                "house": 1900,
+                "hotel": 1900
             }
         },
         "New Delhi": {
             type: "place",
-            "color" : "orange",
-            "rent" : {
-                "site" : 600,
-                "house" : 1200,
-                "hotel" : 2300
+            "color": "orange",
+            "rent": {
+                "site": 600,
+                "house": 1200,
+                "hotel": 2300
             },
-            "cost" : {
-                "site" : 4500,
-                "house" : 8500,
-                "hotel" : 8500
+            "cost": {
+                "site": 4500,
+                "house": 8500,
+                "hotel": 8500
             }
         },
         "Mexico City": {
             type: "place",
-            "color" : "magenta",
-            "rent" : {
-                "site" : 500,
-                "house" : 950,
-                "hotel" : 1750
+            "color": "magenta",
+            "rent": {
+                "site": 500,
+                "house": 950,
+                "hotel": 1750
             },
-            "cost" : {
-                "site" : 2150,
-                "house" : 4000,
-                "hotel" : 4000
+            "cost": {
+                "site": 2150,
+                "house": 4000,
+                "hotel": 4000
             }
         },
         "Luck": {
@@ -372,47 +371,61 @@ YUI.add('GameModel', function (Y, NAME) {
         },
         "Frankfurt": {
             type: "place",
-            "color" : "blue",
-            "rent" : {
-                "site" : 400,
-                "house" : 1400,
-                "hotel" : 2500
+            "color": "blue",
+            "rent": {
+                "site": 400,
+                "house": 1400,
+                "hotel": 2500
             },
-            "cost" : {
-                "site" : 1500,
-                "house" : 3000,
-                "hotel" : 3000
+            "cost": {
+                "site": 1500,
+                "house": 3000,
+                "hotel": 3000
             }
         },
         "Alexandria": {
             type: "place",
-            "color" : "green",
-            "rent" : {
-                "site" : 300,
-                "house" : 800,
-                "hotel" : 1500
+            "color": "green",
+            "rent": {
+                "site": 300,
+                "house": 800,
+                "hotel": 1500
             },
-            "cost" : {
-                "site" : 800,
-                "house" : 2000,
-                "hotel" : 2000
+            "cost": {
+                "site": 800,
+                "house": 2000,
+                "hotel": 2000
             }
         },
         "Wellington": {
             type: "place",
-            "color" : "yellow",
-            "rent" : {
-                "site" : 400,
-                "house" : 1200,
-                "hotel" : 2000
+            "color": "yellow",
+            "rent": {
+                "site": 400,
+                "house": 1200,
+                "hotel": 2000
             },
-            "cost" : {
-                "site" : 1800,
-                "house" : 2900,
-                "hotel" : 2900
+            "cost": {
+                "site": 1800,
+                "house": 2900,
+                "hotel": 2900
             }
         }
     };
+
+    TURN_TO = {};
+    Object.defineProperty(TURN_TO, "PLAY", {
+        value: "play",
+        enumerable: true,
+        writable: false,
+        configurable: false
+    });
+    Object.defineProperty(TURN_TO, "CHOOSE", {
+        value: "choose",
+        enumerable: true,
+        writable: false,
+        configurable: false
+    });
 
     Y.namespace('mojito.models')[NAME] = {
 
@@ -436,7 +449,7 @@ YUI.add('GameModel', function (Y, NAME) {
             }, {
                 upsert: true
             }, function (err, result) {
-                if (err != null) {
+                if (err !== null) {
                     Y.log(err, "error", NAME);
                 }
                 cb(err, result);
@@ -552,12 +565,14 @@ YUI.add('GameModel', function (Y, NAME) {
             newSettings = {};
             newSettings.status = "In Progress";
             newSettings.turn = gameObj.players[0];
+            newSettings.turnTo = TURN_TO.PLAY;
+            newSettings.turnIdx = 0;
             gameObj.players.forEach(function (player, i) {
                 player = player.replace(/\./g, "(");
-                newSettings['playerStatus.' + player +'.status'] = "Playing";
-                newSettings['playerStatus.' + player +'.money'] = 25000;
-                newSettings['playerStatus.' + player +'.position'] = 0;
-                newSettings['playerStatus.' + player +'.color'] = colors[i];
+                newSettings['playerStatus.' + player + '.status'] = "Playing";
+                newSettings['playerStatus.' + player + '.money'] = 25000;
+                newSettings['playerStatus.' + player + '.position'] = 0;
+                newSettings['playerStatus.' + player + '.color'] = colors[i];
             });
             newSettings['positionStatus.0.players'] = gameObj.players;
             games.findAndModify({
@@ -568,7 +583,7 @@ YUI.add('GameModel', function (Y, NAME) {
                 "$set": newSettings
             }, {
                 safe: true,
-                new: true
+                "new": true
             }, function (err, game) {
                 if (err) {
                     Y.log(err, "error", NAME);
@@ -613,7 +628,7 @@ YUI.add('GameModel', function (Y, NAME) {
                 }
             }, {
                 safe: true,
-                new: true
+                "new": true
             }, function (err, game) {
                 if (err) {
                     Y.log(err, "error", NAME);
@@ -621,7 +636,7 @@ YUI.add('GameModel', function (Y, NAME) {
                     return;
                 }
                 Y.log("Players.length: " + game.players.length + " Players: " + game.players + " numplayers: " + game.numPlayers, "debug", NAME);
-                if (game.players.length == game.numPlayers) {
+                if (game.players.length === game.numPlayers) {
                     me.setGameStatusToInProgress(gameId, game, cb);
                     return;
                 }
@@ -634,7 +649,8 @@ YUI.add('GameModel', function (Y, NAME) {
                 "_id": {
                     "$in": Object.keys(playerIds)
                 }
-            }).toArray(function (error, users) {
+            }).toArray(
+                function (error, users) {
                     if (error) {
                         Y.log(error, "error", NAME);
                         cb({});
@@ -649,7 +665,8 @@ YUI.add('GameModel', function (Y, NAME) {
                     cb({
                         users: usersObj
                     });
-                });
+                }
+            );
         },
 
         getUsersForGames: function (games, cb) {
@@ -673,7 +690,8 @@ YUI.add('GameModel', function (Y, NAME) {
                 players: {
                     "$all": [userId]
                 }
-            }).toArray(function (err, gs) {
+            }).toArray(
+                function (err, gs) {
                     if (err) {
                         Y.log(err, "error", NAME);
                         cb({
@@ -689,21 +707,24 @@ YUI.add('GameModel', function (Y, NAME) {
                     }
                     Y.log(gs, "debug", NAME);
                     me.getUsersForGames(gs, cb);
-                });
+                }
+            );
         },
 
         getOpenGames: function (cb) {
             var me = this;
             games.find({
                 status: "Awaiting Players"
-            }).toArray(function (error, games) {
+            }).toArray(
+                function (error, games) {
                     if (error) {
                         Y.log(error, "error", NAME);
                         cb({games: []});
                         return;
                     }
                     me.getUsersForGames(games, cb);
-                });
+                }
+            );
         },
 
         deleteUser: function (userId, cb) {
@@ -759,7 +780,7 @@ YUI.add('GameModel', function (Y, NAME) {
                 "$set": newSetting
             }, {
                 safe: true,
-                new: true
+                "new": true
             }, function (err, game) {
                 if (err) {
                     Y.log(err, "error", NAME);
@@ -772,16 +793,92 @@ YUI.add('GameModel', function (Y, NAME) {
                 game.players.forEach(function (player) {
                     var playerIdx;
                     playerIdx = player.replace(/\./g, "(");
-                    if (game.playerStatus[playerIdx].status == "Playing") {
-                        numPlaying++;
+                    if (game.playerStatus[playerIdx].status === "Playing") {
+                        numPlaying = numPlaying + 1;
                         winnerCandidate = player;
                     }
                 });
-                if (numPlaying == 1) {
+                if (numPlaying === 1) {
                     me.setGameStatusToOver(gameId, winnerCandidate, cb);
                     return;
                 }
                 cb(err, game);
+            });
+
+        },
+
+        payRent: function (game, newPosition, gameUpdate) {
+
+        },
+
+        rotateTurn: function (game, gameUpdate) {
+            gameUpdate.$set.turnIdx = (game.turnIdx + 1) % game.numPlayers;
+            gameUpdate.$set.turn = game.players[gameUpdate.$set.turnIdx];
+            gameUpdate.$set.turnTo = TURN_TO.PLAY;
+        },
+
+        throwDice: function (userId, gameId, cb) {
+            var me = this;
+
+            games.findOne({"_id": gameId}, ["turn", "turnIdx", "numPlayers", "playerStatus", "positionStatus", "players"], function (err, game) {
+                var dice1, dice2, playerIdx, newPosition, oldPosition, gameUpdate;
+
+                function updateGame() {
+                    games.findAndModify({
+                        "_id": gameId
+                    }, [
+                        ['_id', 'asc']
+                    ], gameUpdate, {
+                        safe: true,
+                        "new": true
+                    }, function (err, newGame) {
+                        if (err) {
+                            Y.log(err, "error", NAME);
+                            cb(err, newGame);
+                            return;
+                        }
+                        Y.log("Game after updating in throwDice: ", "debug", NAME);
+                        Y.log(game, "debug", NAME);
+                        cb(err, {
+                            dice1: dice1,
+                            dice2: dice2
+                        });
+                    });
+                }
+
+                if (err) {
+                    Y.log(err, "error", NAME);
+                    cb(err, game);
+                    return;
+                }
+                if (game.turn !== userId) {
+                    cb({error: "This is not your turn to play!"}, game);
+                    return;
+                }
+                dice1 = Math.round(Math.random() * 6);
+                dice2 = Math.round(Math.random() * 6);
+                playerIdx = userId.replace(/\./g, "(");
+                oldPosition = game.playerStatus[playerIdx].position;
+                newPosition = (oldPosition + dice1 + dice2) % 32;
+                gameUpdate = {
+                    '$pull': {},
+                    '$push': {},
+                    '$set': {}
+                };
+                gameUpdate.$pull['positionStatus.' + oldPosition + '.players'] = userId;
+                gameUpdate.$push['positionStatus.' + newPosition + '.players'] = userId;
+                gameUpdate.$set['playerStatus.' + playerIdx + '.position'] = newPosition;
+
+                if (game.positionStatus[newPosition].owner) {
+                    if (game.positionStatus[newPosition].owner !== userId) {
+                        me.payRent(game, newPosition, gameUpdate);
+                    }
+                    me.rotateTurn(game, gameUpdate);
+                    updateGame();
+                    return;
+                }
+                gameUpdate.$set.turnTo = TURN_TO.CHOOSE;
+                updateGame();
             });
 
         }

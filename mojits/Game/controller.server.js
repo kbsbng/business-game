@@ -133,6 +133,18 @@ YUI.add('Game', function(Y, NAME) {
         },
 
         throwDice: function(ac) {
+            var model, params;
+            params = ac.params.getFromUrl();
+            model = ac.models.get('GameModel');
+            model.throwDice(utils.getUserEmail(ac), params.gameId, function(err, newStatus) {
+                if (err) {
+                    Y.log("error: " + err, "error", NAME);
+                    ac.done(JSON.stringify(err));
+                    return;
+                }
+                ac.http.getResponse().setHeader('Content-Type', 'application/json');
+                ac.done(JSON.stringify(newStatus));
+            });
 
         }
 
