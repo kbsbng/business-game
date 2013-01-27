@@ -807,8 +807,14 @@ YUI.add('GameModel', function (Y, NAME) {
 
         },
 
-        payRent: function (game, newPosition, gameUpdate) {
-
+        payRent: function (game, tenant, owner, newPosition, type, gameUpdate) {
+            var tenantIdx, ownerIdx, rent, place;
+            tenantIdx = tenant.replace(/\./g, "(");
+            ownerIdx = owner.replace(/\./g, "(");
+            place = places[newPosition];
+            rent = placesInfo[place].rent[type];
+            gameUpdate.$set['playerStatus.' + tenantIdx + '.money'] = game.playerStatus[tenantIdx].money - rent;
+            gameUpdate.$set['playerStatus.' + ownerIdx + '.money'] = game.playerStatus[ownerIdx].money + rent;
         },
 
         rotateTurn: function (game, gameUpdate) {
@@ -821,7 +827,7 @@ YUI.add('GameModel', function (Y, NAME) {
             var me = this;
 
             games.findOne({"_id": gameId}, ["turn", "turnIdx", "numPlayers", "playerStatus", "positionStatus", "players"], function (err, game) {
-                var dice1, dice2, playerIdx, newPosition, oldPosition, gameUpdate;
+                var dice1, dice2, playerIdx, newPosition, oldPosition, gameUpdate, owner;
 
                 function updateGame() {
                     games.findAndModify({
@@ -869,9 +875,10 @@ YUI.add('GameModel', function (Y, NAME) {
                 gameUpdate.$push['positionStatus.' + newPosition + '.players'] = userId;
                 gameUpdate.$set['playerStatus.' + playerIdx + '.position'] = newPosition;
 
-                if (game.positionStatus[newPosition].owner) {
-                    if (game.positionStatus[newPosition].owner !== userId) {
-                        me.payRent(game, newPosition, gameUpdate);
+                owner = game.positionStatus[newPosition].owner;
+                if (owner) {
+                    if (owner !== userId) {
+                        me.payRent(game, userId, owner, newPosition, game.positionStatus[newPosition].construction, gameUpdate);
                     }
                     me.rotateTurn(game, gameUpdate);
                     updateGame();
